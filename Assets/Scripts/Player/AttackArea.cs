@@ -1,0 +1,18 @@
+using System.Collections;
+using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEngine;
+
+public class AttackArea : MonoBehaviour
+{
+    [SerializeField] private float Damage;
+
+    private void OnTriggerStay2D (Collider2D Other)
+    {
+        if (Other.CompareTag("Enemy"))
+        {
+           Other.gameObject.GetComponent<EnemyLife>().TakeDamage(Damage);
+        }
+
+    }
+}
