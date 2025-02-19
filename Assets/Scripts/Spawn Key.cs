@@ -20,6 +20,8 @@ public class SpawnKey : MonoBehaviour
             return;
         }
 
+        Debug.Log("llave aparecio");
+
         int randomIndex = Random.Range(0, Houses.Length);
         Instantiate(KeyPrefab, Houses[randomIndex].position, Quaternion.identity);
     }

@@ -4,50 +4,80 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    [Header("Follow System")]
+    public bool _canFollow;
     [SerializeField] private Transform Player;
     [SerializeField] float Speed;
     [SerializeField] private float MinDistance;
     [SerializeField] private float MaxDistanceX, MaxDistanceY;
-    [SerializeField] private float TimeAttack;
     private float Time1;
     private bool IsFacingRight = false;
-    public float Damage;
+    private bool _isFollow;
 
+    [Header("Attack")]
+    public float Damage;
+    [SerializeField] private float TimeAttack;
     [SerializeField] private GameObject AttackArea;
-    private bool Attacking = false;
     [SerializeField] private float TimeToAttack;
+    private bool Attacking = false;
     private float Timer = 0f;
+
+    [SerializeField] private LayerMask _wall;
 
 
     private void Start()
     {
         AttackArea = transform.GetChild(0).gameObject;
+        _canFollow = true;
     }
 
     void Update()
+    {
+        //if (_canFollow)
+        //{
+            Follow();
+        //}
+       // else { }
+    }
+
+    private void Follow()
     {
         Time1 += Time.deltaTime;
 
         if (Player == null) return;
 
+        if (_isFollow)
+        {
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, (Player.position - transform.position).normalized, 4, _wall);
+            if (hit.collider != null && hit.collider.gameObject != Player.gameObject)
+            {
+                Debug.Log("toco pared");
+
+                // Hay un obstáculo entre el enemigo y el jugador, no lo persigue
+                return;
+            }
+        }
+
         if (Mathf.Abs(transform.position.x - Player.position.x) > MaxDistanceX)
         {
-
+            _isFollow = false;
         }
 
         if (Mathf.Abs(transform.position.y - Player.position.y) > MaxDistanceY)
         {
-
+            _isFollow = false;
         }
 
         else if (Mathf.Abs(transform.position.x - Player.position.x) > MinDistance && Mathf.Abs(transform.position.x - Player.position.x) < MaxDistanceX)
         {
             transform.position = Vector2.MoveTowards(transform.position, Player.position, Speed * Time.deltaTime);
+            _isFollow = true;
         }
 
         else if (Mathf.Abs(transform.position.y - Player.position.y) > MinDistance && Mathf.Abs(transform.position.x - Player.position.x) < MaxDistanceY)
         {
             transform.position = Vector2.MoveTowards(transform.position, Player.position, Speed * Time.deltaTime);
+            _isFollow = true;
         }
 
         else if (Vector2.Distance(transform.position, Player.position) < MinDistance)
@@ -72,10 +102,10 @@ public class Enemy : MonoBehaviour
             }
         }
 
+
         bool IsPlayerRight = transform.position.x < Player.position.x;
         Flip(IsPlayerRight);
     }
-
     void Attack()
     {
         Attacking = true;
@@ -84,7 +114,7 @@ public class Enemy : MonoBehaviour
 
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerStay2D(Collider2D other)
     {
 
         if (other.CompareTag("Player"))

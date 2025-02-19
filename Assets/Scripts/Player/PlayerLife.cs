@@ -6,11 +6,17 @@ using UnityEngine.UIElements;
 
 public class PlayerLife : MonoBehaviour
 {
-    private float Life;
+    [Header("Life")]
     [SerializeField] private float MaxLife;
+    [SerializeField] private float Life;
     [SerializeField] LifeBar barLife;
     public GameManager gameManager;
 
+    [Header("Cooldown")]
+    [SerializeField] private float cooldown;
+    private float _lastDamage;
+
+    [Header("x")]
     public PlayerSoundEffects playerSFX;
     private PlayerMovement PlayerMovement;
     private Animator Animator;
@@ -27,11 +33,17 @@ public class PlayerLife : MonoBehaviour
 
     public void TakeDamage(float Damage)
     {
+        if ((Time.time - _lastDamage) < cooldown)
+        {
+            return;
+        }
+
+        _lastDamage = Time.time;
+
         Life = Life - Damage;
         barLife.actuallyLife(Life);
         Debug.Log("you are " + Life + " from life");
 
-        playerSFX.PlayDamageSound();
 
         gameManager.CheckDefeatedCondition(Life);
 
@@ -40,6 +52,7 @@ public class PlayerLife : MonoBehaviour
             Debug.Log("Moriste :(");
             Destroy(this.gameObject);
         }
+        playerSFX.PlayDamageSound();
     }
 
     public void TakeDamages(Vector2 position)

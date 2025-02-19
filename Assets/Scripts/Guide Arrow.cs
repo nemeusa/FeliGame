@@ -9,6 +9,11 @@ public class GuideArrow : MonoBehaviour
 
     void Update()
     {
+        GameObject key = GameObject.FindGameObjectWithTag("Key");
+        if (key != null)
+        {
+            target = key.transform;
+        }
         if (target != null)
         {
             // Calcular la dirección hacia el objetivo

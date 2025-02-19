@@ -26,8 +26,8 @@ Transform:
   m_GameObject: {fileID: 1610860937643842889}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.9157767, y: -0.6230675, z: -0.06682231}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: -1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 406151940503194890}
@@ -73,8 +73,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 21300000, guid: 9ca3cf4c96b02a44ab05503df6274c20, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 4a9f6c4509592bf4b98cd1614b6b79fc, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
@@ -134,15 +134,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55b728fb48b28be458126243e26d6f32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _canFollow: 0
   Player: {fileID: 0}
   Speed: 3
   MinDistance: 2
   MaxDistanceX: 11
   MaxDistanceY: 6.5
-  TimeAttack: 2
   Damage: 5
+  TimeAttack: 2
   AttackArea: {fileID: 6484278083956434407}
   TimeToAttack: 0.2
+  _wall:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!70 &5991584700246418868
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -175,8 +179,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 1.9982069, y: -2.7775097}
-  m_Size: {x: 6.595004, y: 3.3579853}
+  m_Offset: {x: 0.6274576, y: -1.3281696}
+  m_Size: {x: 4.565865, y: 4.565865}
   m_Direction: 1
 --- !u!114 &4491947719648565654
 MonoBehaviour:

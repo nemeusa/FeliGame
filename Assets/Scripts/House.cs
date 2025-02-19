@@ -12,7 +12,6 @@ public class House : MonoBehaviour
         {
             AniHouse.Play("Ceiling Back");
         }
-
     }
 
     private void OnTriggerExit2D(Collider2D Other)
