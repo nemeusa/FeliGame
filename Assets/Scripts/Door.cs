@@ -8,7 +8,9 @@ public class Door : MonoBehaviour
     public GameObject Key1;
     public GameObject OpenDoor;
     public GameObject TheDoor;
+    [SerializeField] private GameObject WinScreen;
     [SerializeField] private Animator AniPlayer;
+    [SerializeField] private Animator AniArrow;
 
     public Animator AniDoor;
 
@@ -19,13 +21,19 @@ public class Door : MonoBehaviour
         OpenDoor.SetActive(false);
     }
 
+    private void Update()
+    {
+    }
+
     private void OnTriggerEnter2D (Collider2D other)
     {
         if(other.tag.Equals("Key"))
         {
             Key.Keys += 1;
             Destroy(other.gameObject);
-            AniPlayer.Play("Get Key");
+            AniPlayer.SetBool("Get Key", true);
+            AniArrow.Play("Get Key");
+
         }
     }
 
@@ -40,6 +48,11 @@ public class Door : MonoBehaviour
         {
             Key1.SetActive(true);
             OpenDoor.SetActive(true);
+
+            if (Input.GetButton("Jump"))
+            {
+                WinScreen.SetActive(true);
+            }
         }
     }
 

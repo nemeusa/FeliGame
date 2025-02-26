@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class EnemyAttackArea : MonoBehaviour
 {
-    private float Damage;
+    [SerializeField] private float Damage;
 
-    private void OnTriggerEnter2D(Collider2D Other)
+    private void OnTriggerStay2D(Collider2D Other)
     {
         if (Other.CompareTag("Player"))
         {

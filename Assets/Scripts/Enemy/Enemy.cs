@@ -27,17 +27,14 @@ public class Enemy : MonoBehaviour
 
     private void Start()
     {
+        Player = FindObjectOfType<PlayerMovement>().transform;
         AttackArea = transform.GetChild(0).gameObject;
         _canFollow = true;
     }
 
     void Update()
     {
-        //if (_canFollow)
-        //{
-            Follow();
-        //}
-       // else { }
+        Follow();
     }
 
     private void Follow()
@@ -51,9 +48,9 @@ public class Enemy : MonoBehaviour
             RaycastHit2D hit = Physics2D.Raycast(transform.position, (Player.position - transform.position).normalized, 4, _wall);
             if (hit.collider != null && hit.collider.gameObject != Player.gameObject)
             {
-                Debug.Log("toco pared");
+                //Debug.Log("toco pared");
 
-                // Hay un obstáculo entre el enemigo y el jugador, no lo persigue
+                // Hay una pared en el medio, asi que no sigue al jugador
                 return;
             }
         }
@@ -114,14 +111,14 @@ public class Enemy : MonoBehaviour
 
     }
 
-    private void OnTriggerStay2D(Collider2D other)
-    {
+    //private void OnTriggerStay2D(Collider2D other)
+    //{
 
-        if (other.CompareTag("Player"))
-        {
-            other.gameObject.GetComponent<PlayerLife>().TakeDamage(Damage);
-        }
-    }
+    //    if (other.CompareTag("Player"))
+    //    {
+    //        other.gameObject.GetComponent<PlayerLife>().TakeDamage(Damage);
+    //    }
+    //}
 
     void Flip(bool IsPlayerRight)
     {

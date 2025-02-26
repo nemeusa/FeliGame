@@ -31,6 +31,16 @@ public class Bulley : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        if (Collider.gameObject.CompareTag("Player"))
+        {
+            Vector2 direction = (Collider.transform.position - transform.position).normalized;
+
+            Collider.gameObject.GetComponent<PlayerLife>().TakeDamages(direction);
+
+            //Debug.Log("AAA ME TOCO");
+        }
+
     }
 
 

@@ -6,12 +6,18 @@ using UnityEngine;
 public class AttackArea : MonoBehaviour
 {
     [SerializeField] private float Damage;
+    [SerializeField] private bool _isChargeAttack;
+    
 
     private void OnTriggerStay2D (Collider2D Other)
     {
         if (Other.CompareTag("Enemy"))
         {
            Other.gameObject.GetComponent<EnemyLife>().TakeDamage(Damage);
+        }
+        if(Other.CompareTag("Attack") && _isChargeAttack)
+        {
+            Destroy(Other.gameObject);
         }
 
     }

@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class EnemyBullet : MonoBehaviour
 {
-    public Transform Player;
+    [SerializeField] Transform Player;
+    [SerializeField] Transform _spawnPoint;
 
     [SerializeField] private float Vision;
 
@@ -15,7 +16,7 @@ public class EnemyBullet : MonoBehaviour
 
     void Shoot()
     {
-        Instantiate(Bullet, transform.position, Quaternion.Euler(0, 0, transform.rotation.eulerAngles.z));
+        Instantiate(Bullet, _spawnPoint.position, Quaternion.Euler(0, 0, transform.rotation.eulerAngles.z));
     }
 
     void Update()
@@ -24,7 +25,7 @@ public class EnemyBullet : MonoBehaviour
 
         if (Player == null) return;
 
-        if (Vision > Player.position.x)
+        if (Mathf.Abs(transform.position.x - Player.position.x) <= Vision)
         {
             if (TimeBullet > DelayBullet)
             {

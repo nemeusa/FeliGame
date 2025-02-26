@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.U2D.Animation;
+//using UnityEditor.U2D.Animation;
 using UnityEngine;
 
 public class GuideArrow : MonoBehaviour
 {
+    [SerializeField] Transform _arrow;
+    [SerializeField] GameObject _arrowObject;
     public Transform target; // El objeto al que la flecha debe apuntar.
 
     void Update()
@@ -23,10 +25,15 @@ public class GuideArrow : MonoBehaviour
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
             // Aplicar la rotación a la flecha
-            transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+            _arrow.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
 
 
 
         }
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            _arrowObject.SetActive(!_arrowObject.activeSelf);
+        }
     }
+
 }

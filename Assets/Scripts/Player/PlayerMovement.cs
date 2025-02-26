@@ -31,12 +31,14 @@ public class PlayerMovement : MonoBehaviour
         PlayerAnimator.SetFloat("Speed", MoveInput.sqrMagnitude);
 
 
-        if (Input.GetKey(KeyCode.A))
+        //if (Input.GetKey(KeyCode.A))
+        if (moveX < 0)
         {
             transform.localScale = new Vector3(-0.2f, 0.2f, 0.2f);
         }
 
-        else if (Input.GetKey(KeyCode.D))
+        //else if (Input.GetKey(KeyCode.D))
+        else if (moveX > 0)
         {
             transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
         }

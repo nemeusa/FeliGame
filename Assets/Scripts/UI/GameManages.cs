@@ -28,9 +28,9 @@ public class GameManager : MonoBehaviour
         _defeatedMenu.SetActive(true);
     }
 
-    void WinMenu()
+    public void WinMenu()
     {
         _winMenu.SetActive(true);
-    }   
+    }
 
 }

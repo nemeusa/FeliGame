@@ -5,15 +5,15 @@ using UnityEngine;
 
 public class AttackRebound : MonoBehaviour
 {
-    private void OnTriggerEnter2D(Collider2D Other)
-    {
+    private void OnTriggerStay2D(Collider2D Other)
+    { 
         if (Other.gameObject.CompareTag("Player"))
         {
             Vector2 direction = (Other.transform.position - transform.position).normalized;
 
             Other.gameObject.GetComponent<PlayerLife>().TakeDamages(direction);
 
-            Debug.Log("AAA ME TOCO");
+            //Debug.Log("AAA ME TOCO");
         }
 
     }
