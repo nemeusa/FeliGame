@@ -7,6 +7,7 @@ public class AttackArea : MonoBehaviour
 {
     [SerializeField] private float Damage;
     [SerializeField] private bool _isChargeAttack;
+    [SerializeField] private int _points;
     
 
     private void OnTriggerStay2D (Collider2D Other)
@@ -18,6 +19,7 @@ public class AttackArea : MonoBehaviour
         if(Other.CompareTag("Attack") && _isChargeAttack)
         {
             Destroy(Other.gameObject);
+            PointsCounter.Instance.AddPoints(_points);
         }
 
     }

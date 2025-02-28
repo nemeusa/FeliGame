@@ -47,6 +47,7 @@ public class PlayerAttack : MonoBehaviour
             if (_holdTime >= _chargeTime && !_attackIsReady)
             {
                 //Debug.Log("ataque cargado inicia");
+                PlayerAnimator.SetBool("Charge", true);
                 _attackIsReady = true;
             }
         }
@@ -87,7 +88,9 @@ public class PlayerAttack : MonoBehaviour
 
     private void ChargeAttack()
     {
+        PlayerAnimator.SetBool("Charge", false);
         PlayerAnimator.SetBool("Attack", true);
+        playerSFX.PlayChargeAttackSound();
         _isAttacking = true;
         //playerSFX
         _chargeAttackArea.SetActive(true);

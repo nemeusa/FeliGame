@@ -13,6 +13,9 @@ public class Enemy : MonoBehaviour
     private float Time1;
     private bool IsFacingRight = false;
     private bool _isFollow;
+    [SerializeField] bool _daius;
+    [SerializeField] bool _mishas;
+    //[SerializeField] private CatCobain _cobain;
 
     [Header("Attack")]
     public float Damage;
@@ -28,6 +31,7 @@ public class Enemy : MonoBehaviour
     private void Start()
     {
         Player = FindObjectOfType<PlayerMovement>().transform;
+        //_cobain = Find
         AttackArea = transform.GetChild(0).gameObject;
         _canFollow = true;
     }
@@ -35,7 +39,12 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         Follow();
+        if( _daius)
+        {
+            Destroy(gameObject, 30);
+        }
     }
+
 
     private void Follow()
     {

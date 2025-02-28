@@ -11,6 +11,7 @@ public class Door : MonoBehaviour
     [SerializeField] private GameObject WinScreen;
     [SerializeField] private Animator AniPlayer;
     [SerializeField] private Animator AniArrow;
+    [SerializeField] private GameObject Player;
 
     public Animator AniDoor;
 
@@ -47,11 +48,13 @@ public class Door : MonoBehaviour
         if (other.tag.Equals("Door") && Key.Keys == 1)
         {
             Key1.SetActive(true);
-            OpenDoor.SetActive(true);
+            //OpenDoor.SetActive(true);
 
             if (Input.GetButton("Jump"))
             {
                 WinScreen.SetActive(true);
+                Player.GetComponent<PlayerLife>().enabled = false;
+                Player.GetComponent<PlayerAttack>().enabled = false;
             }
         }
     }
@@ -66,7 +69,7 @@ public class Door : MonoBehaviour
         if (other.tag.Equals("Door") && Key.Keys == 1)
         {
             Key1.SetActive(false);
-            OpenDoor.SetActive(false);
+            //OpenDoor.SetActive(false);
         }
     }
 
