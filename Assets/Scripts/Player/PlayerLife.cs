@@ -59,10 +59,12 @@ public class PlayerLife : MonoBehaviour
 
     public void TakeDamages(Vector2 position)
     {
-
-        StartCoroutine(ControlLose());
-        StartCoroutine(Invincible());
-        PlayerMovement.Reboud(position);
+        if (Life >= 1)
+        {
+            StartCoroutine(ControlLose());
+            StartCoroutine(Invincible());
+            PlayerMovement.Reboud(position);
+        }
     }
 
     private IEnumerator Invincible()
