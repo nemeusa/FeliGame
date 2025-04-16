@@ -4,20 +4,21 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] GameObject _defeatedMenu, _winMenu;
+    [SerializeField] GameObject _defeatedMenu, _winMenu, _store;
     [SerializeField] GameObject _pauseUI;
     [SerializeField] UISoundEffects _UISounds;
     private bool _altBool;
-    private bool _beMenuScreen;
+    private bool _isPause;
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && _defeatedMenu && _winMenu)
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             _altBool = !_altBool;
             PauseLevel(_altBool);
             _pauseUI.SetActive(_altBool);
             _UISounds.PlayButtonSound();
+            _store.SetActive(false);
         }
 
     }
@@ -35,10 +36,9 @@ public class GameManager : MonoBehaviour
 
     public void PauseLevel(bool pause)
     {
+            _isPause = pause;
             if (pause) Time.timeScale = 0f;
             else Time.timeScale = 1f;
-            Debug.Log("hay pausa lol" + _beMenuScreen);
-
     }
 
     void DefeatedMenu()
@@ -51,6 +51,12 @@ public class GameManager : MonoBehaviour
     {
         PauseLevel(true);
         _winMenu.SetActive(true);
+    }
+    
+    public void StoreMenu()
+    {
+        PauseLevel(true);
+        _store.SetActive(true);
     }
 
 }

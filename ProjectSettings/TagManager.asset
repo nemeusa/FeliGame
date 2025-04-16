@@ -10,6 +10,7 @@ TagManager:
   - Floor
   - Wall
   - Attack
+  - Store
   layers:
   - Default
   - TransparentFX

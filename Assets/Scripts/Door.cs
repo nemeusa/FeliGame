@@ -55,11 +55,16 @@ public class Door : MonoBehaviour
 
             if (Input.GetButton("Jump"))
             {
-                WinScreen.SetActive(true);
-                //_manages.PauseLevel(true);
+                //WinScreen.SetActive(true);
+                _manages.WinMenu();
                 //Player.GetComponent<PlayerLife>().enabled = false;
                 //Player.GetComponent<PlayerAttack>().enabled = false;
             }
+        }
+
+        if (other.tag.Equals("Store") && Input.GetButton("Jump"))
+        {
+            _manages.StoreMenu();
         }
     }
 
