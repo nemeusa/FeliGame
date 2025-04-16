@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,8 @@ public class Door : MonoBehaviour
     [SerializeField] private Animator AniPlayer;
     [SerializeField] private Animator AniArrow;
     [SerializeField] private GameObject Player;
+
+    [SerializeField] GameManager _manages;
 
     public Animator AniDoor;
 
@@ -53,8 +56,9 @@ public class Door : MonoBehaviour
             if (Input.GetButton("Jump"))
             {
                 WinScreen.SetActive(true);
-                Player.GetComponent<PlayerLife>().enabled = false;
-                Player.GetComponent<PlayerAttack>().enabled = false;
+                //_manages.PauseLevel(true);
+                //Player.GetComponent<PlayerLife>().enabled = false;
+                //Player.GetComponent<PlayerAttack>().enabled = false;
             }
         }
     }
