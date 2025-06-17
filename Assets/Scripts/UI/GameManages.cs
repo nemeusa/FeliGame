@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -49,8 +50,9 @@ public class GameManager : MonoBehaviour
 
     public void WinMenu()
     {
-        PauseLevel(true);
-        _winMenu.SetActive(true);
+        SceneManager.LoadScene("Credits");
+        //PauseLevel(true);
+        //_winMenu.SetActive(true);
     }
     
     public void StoreMenu()

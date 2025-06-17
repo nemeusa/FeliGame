@@ -51,7 +51,7 @@ public class Door : MonoBehaviour
         if (other.tag.Equals("Door") && Key.Keys == 1)
         {
             Key1.SetActive(true);
-            //OpenDoor.SetActive(true);
+            OpenDoor.SetActive(true);
 
             if (Input.GetButton("Jump"))
             {
@@ -78,7 +78,7 @@ public class Door : MonoBehaviour
         if (other.tag.Equals("Door") && Key.Keys == 1)
         {
             Key1.SetActive(false);
-            //OpenDoor.SetActive(false);
+            OpenDoor.SetActive(false);
         }
     }
 
