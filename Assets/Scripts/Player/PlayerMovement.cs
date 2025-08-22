@@ -5,13 +5,16 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
 
-    [SerializeField] private float Speed = 3f;
+    [SerializeField] private float speed = 3f;
     private Rigidbody2D PlayerRb;
     private Vector2 MoveInput;
     public bool DontMove = false;
     [SerializeField] Vector2 ReboundSpeed;
 
     [SerializeField] Animator PlayerAnimator;
+
+    Coroutine _CoroutinePath;
+
 
 
     void Start()
@@ -48,7 +51,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!DontMove)
         {
-            PlayerRb.MovePosition(PlayerRb.position + MoveInput * Speed * Time.fixedDeltaTime);
+            PlayerRb.MovePosition(PlayerRb.position + MoveInput * speed * Time.fixedDeltaTime);
         }
         
     }
@@ -56,5 +59,37 @@ public class PlayerMovement : MonoBehaviour
     public void Reboud (Vector2 HitPoint)
     {
        PlayerRb.velocity = new Vector2(ReboundSpeed.x * HitPoint.x, ReboundSpeed.y);
+    }
+
+    public void SetPath(List<Nodes> path)
+    {
+        if (path.Count <= 0) return;
+
+        if (_CoroutinePath != null)
+            StopCoroutine(_CoroutinePath);
+
+        _CoroutinePath = StartCoroutine(CoroutinePath(path));
+    }
+
+    IEnumerator CoroutinePath(List<Nodes> path)
+    {
+        transform.position = path[0].transform.position;
+        path.RemoveAt(0);
+
+        while (path.Count > 0)
+        {
+            var dir = path[0].transform.position - transform.position;
+            transform.forward = dir;
+            transform.position += transform.forward * speed * Time.deltaTime;
+
+            if (dir.magnitude <= 0.5f)
+            {
+                path.RemoveAt(0);
+            }
+
+            yield return null;
+        }
+
+        _CoroutinePath = null;
     }
 }
