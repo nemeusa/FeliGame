@@ -20,7 +20,13 @@ public class PursuitState : States
 
     public void OnUpdate()
     {
+        _enemyCat.FollowTarget(_enemyCat.characterTarget.transform);
         Debug.Log("player in fov update");
+
+        if (!_enemyCat.fov.InFOV(_enemyCat.characterTarget))
+        {
+            _fsm.ChangeState(TypeFSM.Walk);
+        }
 
     }
     public void OnExit()

@@ -45,9 +45,6 @@ public class WalkState : States
     {
         Debug.Log("update patrol");
 
-        bool IsPlayerRight = _enemyCat.transform.position.x < _path[0].transform.position.x;
-        _enemyCat.Flip(IsPlayerRight);
-
         if (_enemyCat.fov.InFOV(_enemyCat.characterTarget))
         {
             _fsm.ChangeState(TypeFSM.Pursuit);
@@ -92,32 +89,10 @@ public class WalkState : States
                 yield break;
 
 
+            _enemyCat.FollowTarget(path[0].transform);
+
             Vector2 dir = path[0].transform.position - _enemyCat.transform.position;
 
-            dir.Normalize();
-
-            // Movimiento solo en X-Y
-            Vector3 movement = new Vector3(dir.x, dir.y, 0f) * _enemyCat.speed * Time.deltaTime;
-            _enemyCat.transform.position += movement;
-
-            //if (dir.x >= 0.2f)
-            //{ 
-            //    bool IsPlayerRight = _enemyCat.transform.position.x < path[0].transform.position.x;
-            //    _enemyCat.Flip(IsPlayerRight);
-            //}
-
-            // Mantener Z fijo
-            //_enemyCat.transform.position = new Vector3(
-            //    _enemyCat.transform.position.x,
-            //    _enemyCat.transform.position.y,
-            //    0
-            //);
-
-            //_enemyCat.transform.forward = dir;
-
-            //_enemyCat.transform.position += _enemyCat.transform.forward * _enemyCat.speed * Time.deltaTime;
-
-            //Debug.Log("patrol");
             if (dir.magnitude <= 0.2f)
                 path.RemoveAt(0);
 

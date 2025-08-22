@@ -45,8 +45,24 @@ public class EnemyCat : MonoBehaviour
         fsm.Execute();
     }
 
-    public void Flip(bool IsTargetRight)
+    public void FollowTarget(Transform target)
     {
+        Vector2 dir = target.transform.position - transform.position;
+
+        dir.Normalize();
+
+        Vector3 movement = new Vector3(dir.x, dir.y, 0f) * speed * Time.deltaTime;
+        transform.position += movement;
+
+        Flip(target);
+    }
+
+    public void Flip(Transform target)
+    {
+        Vector2 dir = target.position - transform.position;
+
+        bool IsTargetRight = transform.position.x < target.transform.position.x;
+
         if ((_IsFacingRight && !IsTargetRight) || (!_IsFacingRight && IsTargetRight))
         {
             _IsFacingRight = IsTargetRight; //  acá sincronizas
@@ -55,8 +71,6 @@ public class EnemyCat : MonoBehaviour
             scale.x *= -1;
             transform.localScale = scale;
 
-            Debug.Log("Cat Look right = " + _IsFacingRight);
-            // Si tu FOV está como hijo del enemigo
             fov.IsFacingRight = _IsFacingRight;
         }
     }
