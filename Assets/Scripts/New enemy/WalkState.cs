@@ -45,6 +45,9 @@ public class WalkState : States
     {
         Debug.Log("update patrol");
 
+        bool IsPlayerRight = _enemyCat.transform.position.x < _path[0].transform.position.x;
+        _enemyCat.Flip(IsPlayerRight);
+
         if (_enemyCat.fov.InFOV(_enemyCat.characterTarget))
         {
             _fsm.ChangeState(TypeFSM.Pursuit);
@@ -66,6 +69,7 @@ public class WalkState : States
         var path = _enemyCat.gameManager.pathfinding.CalculateAStar(current, next);
         _path = path;
 
+   
 
         if (path.Count > 0)
         {
@@ -96,11 +100,11 @@ public class WalkState : States
             Vector3 movement = new Vector3(dir.x, dir.y, 0f) * _enemyCat.speed * Time.deltaTime;
             _enemyCat.transform.position += movement;
 
-            if (dir.x >= 0.2f)
-            { 
-                bool IsPlayerRight = _enemyCat.transform.position.x < path[0].transform.position.x;
-                _enemyCat.Flip(IsPlayerRight);
-            }
+            //if (dir.x >= 0.2f)
+            //{ 
+            //    bool IsPlayerRight = _enemyCat.transform.position.x < path[0].transform.position.x;
+            //    _enemyCat.Flip(IsPlayerRight);
+            //}
 
             // Mantener Z fijo
             //_enemyCat.transform.position = new Vector3(
