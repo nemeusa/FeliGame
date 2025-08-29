@@ -28,9 +28,20 @@ public class EnemyCat : MonoBehaviour
     [HideInInspector]
     bool _IsFacingRight = true;
 
+    public Rigidbody2D rb;
+
+    public float minFollowDistancePlayer;
+    public float minAttackDistancePlayer;
+
+    public GameObject attackArea;
+
+    public float attackTime;
+
+
 
     void Awake()
     {
+        rb = GetComponent<Rigidbody2D>();
         fsm = new FSM<TypeFSM>();
         fsm.AddState(TypeFSM.Walk, new WalkState(fsm, this));
         fsm.AddState(TypeFSM.Pursuit, new PursuitState(fsm, this));
@@ -74,6 +85,9 @@ public class EnemyCat : MonoBehaviour
             fov.IsFacingRight = _IsFacingRight;
         }
     }
+
+    public bool Mindistance(float minDistance) => Vector2.Distance(transform.position,
+            characterTarget.position) < minDistance;
 
 }
 
