@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class EnemyCat : MonoBehaviour
@@ -88,6 +89,22 @@ public class EnemyCat : MonoBehaviour
 
     public bool Mindistance(float minDistance) => Vector2.Distance(transform.position,
             characterTarget.position) < minDistance;
+
+    public Node FindClosestNode()
+    {
+        Node closest = null;
+        float minDist = Mathf.Infinity;
+        //foreach (var node in gameManager.pathfinding.GetAllNodes())
+        //{
+        //    float dist = Vector3.Distance(transform.position, node.transform.position);
+        //    if (dist < minDist)
+        //    {
+        //        minDist = dist;
+        //        closest = node;
+        //    }
+        //}
+        return closest;
+    }
 
 }
 

@@ -25,7 +25,7 @@ public class PursuitState : States
 
        bool followDist = _enemyCat.Mindistance(_enemyCat.minFollowDistancePlayer);
 
-        if (!_enemyCat.fov.InFOV(_enemyCat.characterTarget) && followDist)
+        if (!_enemyCat.fov.InFOV(_enemyCat.characterTarget) && !followDist)
         {
             _fsm.ChangeState(TypeFSM.Walk);
         }
