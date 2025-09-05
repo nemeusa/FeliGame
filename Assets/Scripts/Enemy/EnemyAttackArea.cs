@@ -4,13 +4,20 @@ using UnityEngine;
 
 public class EnemyAttackArea : MonoBehaviour
 {
-    [SerializeField] private float Damage;
+    //[SerializeField] private float _damage;
+    EnemyCat _enemyCat;
+
+    private void Awake()
+    {
+        _enemyCat = GetComponentInParent<EnemyCat>();
+    }
 
     private void OnTriggerStay2D(Collider2D Other)
     {
-        if (Other.CompareTag("Player"))
+        PlayerLife player = Other.GetComponent<PlayerLife>();
+        if (player != null)
         {
-            Other.gameObject.GetComponent<PlayerLife>().TakeDamage(Damage);
+            player.TakeDamage(_enemyCat.damage);
         }
 
     }

@@ -7086,6 +7086,21 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6484278083956434407, guid: 86ceda0757bf14048bb14100f2b04974, type: 3}
   m_PrefabInstance: {fileID: 845412375}
   m_PrefabAsset: {fileID: 0}
+--- !u!111 &662124146
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 662124139}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 3480c11f7358c78429ca15c461a65243, type: 2}
+  m_Animations: []
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &664686069
 GameObject:
   m_ObjectHideFlags: 0
@@ -12270,6 +12285,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Misha
       objectReference: {fileID: 0}
+    - target: {fileID: 6484278083956434407, guid: 86ceda0757bf14048bb14100f2b04974, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7601804389185155371, guid: 86ceda0757bf14048bb14100f2b04974, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7877473735818098080, guid: 86ceda0757bf14048bb14100f2b04974, type: 3}
       propertyPath: fov
       value: 
@@ -12279,12 +12302,16 @@ PrefabInstance:
       value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 7877473735818098080, guid: 86ceda0757bf14048bb14100f2b04974, type: 3}
+      propertyPath: attackAni
+      value: 
+      objectReference: {fileID: 662124146}
+    - target: {fileID: 7877473735818098080, guid: 86ceda0757bf14048bb14100f2b04974, type: 3}
       propertyPath: attackArea
       value: 
       objectReference: {fileID: 662124139}
     - target: {fileID: 7877473735818098080, guid: 86ceda0757bf14048bb14100f2b04974, type: 3}
       propertyPath: attackTime
-      value: 0.5
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 7877473735818098080, guid: 86ceda0757bf14048bb14100f2b04974, type: 3}
       propertyPath: gameManager
@@ -12300,7 +12327,7 @@ PrefabInstance:
       objectReference: {fileID: 1539643745}
     - target: {fileID: 7877473735818098080, guid: 86ceda0757bf14048bb14100f2b04974, type: 3}
       propertyPath: minAttackDistancePlayer
-      value: 1
+      value: 1.6
       objectReference: {fileID: 0}
     - target: {fileID: 7877473735818098080, guid: 86ceda0757bf14048bb14100f2b04974, type: 3}
       propertyPath: minFollowDistancePlayer
@@ -12329,7 +12356,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6484278083956434407, guid: 86ceda0757bf14048bb14100f2b04974, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 662124146}
   m_SourcePrefab: {fileID: 100100000, guid: 86ceda0757bf14048bb14100f2b04974, type: 3}
 --- !u!1 &853108627
 GameObject:

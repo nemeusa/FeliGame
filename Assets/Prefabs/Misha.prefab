@@ -176,8 +176,16 @@ MonoBehaviour:
   gameManager: {fileID: 0}
   fov: {fileID: 0}
   characterTarget: {fileID: 0}
+  playerScript: {fileID: 0}
   lastKnownPosition: {x: 0, y: 0, z: 0}
   lastKnownNode: {fileID: 0}
+  rb: {fileID: 0}
+  minFollowDistancePlayer: 0
+  minAttackDistancePlayer: 0
+  attackArea: {fileID: 0}
+  attackTime: 0
+  damage: 5
+  attackScript: {fileID: 0}
 --- !u!114 &126905481641794996
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -193,6 +201,7 @@ MonoBehaviour:
   viewRadius: 0
   viewAngle: 0
   characterTarget: {fileID: 0}
+  IsFacingRight: 1
 --- !u!114 &4491947719648565654
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -256,7 +265,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7371897156051707422
 Transform:
   m_ObjectHideFlags: 0
@@ -308,7 +317,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 19.2, y: 10.8}
+    oldSize: {x: 4.92, y: 3.57}
     newSize: {x: 19.2, y: 10.8}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -358,7 +367,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: 21300000, guid: 818ac40d46cac604f8ab31e2ef4bd28b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 99c6e683256290d4786b11804df32f4e, type: 3}
   m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 1
   m_FlipY: 0
@@ -381,7 +390,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12c60bdc52990d34791767793580f96c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Damage: 5
 --- !u!114 &4572641564106884320
 MonoBehaviour:
   m_ObjectHideFlags: 0

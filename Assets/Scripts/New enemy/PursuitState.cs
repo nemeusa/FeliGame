@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PursuitState : States
@@ -43,7 +44,11 @@ public class PursuitState : States
     IEnumerator Attack()
     {
         _enemyCat.attackArea.SetActive(true);
+        //Animation attack = _enemyCat.attackScript.GetComponent<Animation>();
+        //_enemyCat.attackAni.Play();
+        //yield return new WaitForSeconds(0.01f);
         yield return new WaitForSeconds(_enemyCat.attackTime);
+        _enemyCat.attackAni.Stop();
         _enemyCat.attackArea.SetActive(false);
     }
 

@@ -21,6 +21,8 @@ public class EnemyCat : MonoBehaviour
 
     public Transform characterTarget;
 
+    public PlayerMovement playerScript;
+
     [HideInInspector]
     public Vector3 lastKnownPosition;
     [HideInInspector]
@@ -38,10 +40,15 @@ public class EnemyCat : MonoBehaviour
 
     public float attackTime;
 
+    public float damage = 5;
 
+    public EnemyAttackArea attackScript;
+
+    public Animation attackAni;
 
     void Awake()
     {
+        attackScript = GetComponentInChildren<EnemyAttackArea>();
         rb = GetComponent<Rigidbody2D>();
         fsm = new FSM<TypeFSM>();
         fsm.AddState(TypeFSM.Walk, new WalkState(fsm, this));
