@@ -7093,7 +7093,7 @@ Animation:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 662124139}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Animation: {fileID: 7400000, guid: 3480c11f7358c78429ca15c461a65243, type: 2}
   m_Animations: []
@@ -7101,6 +7101,22 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
+--- !u!95 &662124147 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 7601804389185155371, guid: 86ceda0757bf14048bb14100f2b04974, type: 3}
+  m_PrefabInstance: {fileID: 845412375}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &662124149 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7762514970242421178, guid: 86ceda0757bf14048bb14100f2b04974, type: 3}
+  m_PrefabInstance: {fileID: 845412375}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 662124139}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12c60bdc52990d34791767793580f96c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &664686069
 GameObject:
   m_ObjectHideFlags: 0
@@ -12291,7 +12307,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7601804389185155371, guid: 86ceda0757bf14048bb14100f2b04974, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7877473735818098080, guid: 86ceda0757bf14048bb14100f2b04974, type: 3}
       propertyPath: fov
@@ -12304,19 +12320,23 @@ PrefabInstance:
     - target: {fileID: 7877473735818098080, guid: 86ceda0757bf14048bb14100f2b04974, type: 3}
       propertyPath: attackAni
       value: 
-      objectReference: {fileID: 662124146}
+      objectReference: {fileID: 662124147}
     - target: {fileID: 7877473735818098080, guid: 86ceda0757bf14048bb14100f2b04974, type: 3}
       propertyPath: attackArea
       value: 
       objectReference: {fileID: 662124139}
     - target: {fileID: 7877473735818098080, guid: 86ceda0757bf14048bb14100f2b04974, type: 3}
       propertyPath: attackTime
-      value: 0.3
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 7877473735818098080, guid: 86ceda0757bf14048bb14100f2b04974, type: 3}
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 1271860668}
+    - target: {fileID: 7877473735818098080, guid: 86ceda0757bf14048bb14100f2b04974, type: 3}
+      propertyPath: attackScript
+      value: 
+      objectReference: {fileID: 662124149}
     - target: {fileID: 7877473735818098080, guid: 86ceda0757bf14048bb14100f2b04974, type: 3}
       propertyPath: lastKnownNode
       value: 

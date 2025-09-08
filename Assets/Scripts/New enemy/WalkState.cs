@@ -43,7 +43,7 @@ public class WalkState : States
 
     public void OnUpdate()
     {
-        Debug.Log("update patrol");
+        //Debug.Log("update patrol");
 
         if (_enemyCat.fov.InFOV(_enemyCat.characterTarget))
         {
@@ -53,7 +53,7 @@ public class WalkState : States
 
     public void OnExit()
     {
-        Debug.Log("exit patrol");
+        //Debug.Log("exit patrol");
         _enemyCat.StopCoroutine(FollowPath(_path));
     }
 

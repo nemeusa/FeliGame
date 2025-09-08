@@ -44,7 +44,7 @@ public class EnemyCat : MonoBehaviour
 
     public EnemyAttackArea attackScript;
 
-    public Animation attackAni;
+    public Animator attackAni;
 
     void Awake()
     {
@@ -61,6 +61,8 @@ public class EnemyCat : MonoBehaviour
 
     void Update()
     {
+        //if (characterTarget == null) fsm.ChangeState(TypeFSM.Walk);
+        if (characterTarget == null) return;
         fsm.Execute();
     }
 

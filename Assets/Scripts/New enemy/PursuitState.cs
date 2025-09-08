@@ -16,13 +16,13 @@ public class PursuitState : States
 
     public void OnEnter()
     {
-        Debug.Log("player in fov");
+        //Debug.Log("player in fov");
     }
 
     public void OnUpdate()
     {
         _enemyCat.FollowTarget(_enemyCat.characterTarget.transform);
-        Debug.Log("player in fov update");
+        //Debug.Log("player in fov update");
 
        bool followDist = _enemyCat.Mindistance(_enemyCat.minFollowDistancePlayer);
 
@@ -31,9 +31,7 @@ public class PursuitState : States
             _fsm.ChangeState(TypeFSM.Walk);
         }
 
-        bool attackDist = _enemyCat.Mindistance(_enemyCat.minAttackDistancePlayer);
-
-        if (attackDist) _enemyCat.StartCoroutine(Attack());
+     
 
     }
     public void OnExit()
@@ -41,14 +39,32 @@ public class PursuitState : States
     }
 
 
-    IEnumerator Attack()
+    void Attack()
+    {
+        //bool Attacking;
+
+        //if (Attacking)
+        //{
+        //    Timer += Time.deltaTime;
+
+        //    if (Timer >= TimeToAttack)
+        //    {
+        //        Timer = 0f;
+                bool attackDist = _enemyCat.Mindistance(_enemyCat.minAttackDistancePlayer);
+
+        //        Debug.Log("atacando es: " + attackDist);
+
+                if (attackDist) _enemyCat.StartCoroutine(AttackEnum());
+        //    }
+        //}
+    }
+
+    IEnumerator AttackEnum()
     {
         _enemyCat.attackArea.SetActive(true);
-        //Animation attack = _enemyCat.attackScript.GetComponent<Animation>();
-        //_enemyCat.attackAni.Play();
-        //yield return new WaitForSeconds(0.01f);
+        _enemyCat.attackAni.SetBool("IsAttack", true);
         yield return new WaitForSeconds(_enemyCat.attackTime);
-        _enemyCat.attackAni.Stop();
+        _enemyCat.attackAni.SetBool("IsAttack", false);
         _enemyCat.attackArea.SetActive(false);
     }
 
