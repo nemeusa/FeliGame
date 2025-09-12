@@ -7,6 +7,7 @@ public class Pathfinding : MonoBehaviour
 
     public List<CustomNodes> GetAllNodes()
     {
+        allNodes = new List<CustomNodes>(FindObjectsOfType<CustomNodes>());
         return allNodes;
         //return new List<Nodes>(FindObjectsOfType<Nodes>());
 

@@ -97,8 +97,8 @@ public class EnemyCat : MonoBehaviour
         }
     }
 
-    public bool Mindistance(float minDistance) => Vector2.Distance(transform.position,
-            characterTarget.position) < minDistance;
+    public bool Mindistance(Transform target,float minDistance) => Vector2.Distance(transform.position,
+            target.position) < minDistance;
 
     public CustomNodes FindClosestNode()
     {

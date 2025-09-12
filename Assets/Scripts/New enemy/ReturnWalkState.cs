@@ -36,11 +36,8 @@ public class ReturnWalkState : States
         if (nearestPatrolNode != null)
         {
             // calcular A*
-            Debug.Log("Returning to patrol points...");
             var path = _enemyCat.gameManager.pathfinding.CalculateAStar(
-                _enemyCat.FindClosestNode(), // desde su nodo más cercano
-                nearestPatrolNode
-            );
+                _enemyCat.FindClosestNode(), nearestPatrolNode);
 
             if (_enemyCat.pathRoutine != null)
                 _enemyCat.StopCoroutine(_enemyCat.pathRoutine);
@@ -71,27 +68,21 @@ public class ReturnWalkState : States
             yield break;
         }
 
-        _enemyCat.transform.position = path[0].transform.position;
         path.RemoveAt(0);
 
         while (path.Count > 0)
         {
-            // abortar si cambia de estado
             if (_fsm.CurrentStateKey != TypeFSM.Returning)
                 yield break;
 
-            var dir = path[0].transform.position - _enemyCat.transform.position;
-            _enemyCat.transform.forward = dir;
+            _enemyCat.FollowTarget(path[0].transform);
 
-            _enemyCat.transform.position += _enemyCat.transform.forward * _enemyCat.speed * Time.deltaTime;
-
-            if (dir.magnitude <= 0.2f)
+            if (_enemyCat.Mindistance(path[0].transform, 0.2f))
                 path.RemoveAt(0);
 
             yield return null;
         }
 
-        // cuando llega, vuelve a patrullar
         _fsm.ChangeState(TypeFSM.Walk);
     }
 }

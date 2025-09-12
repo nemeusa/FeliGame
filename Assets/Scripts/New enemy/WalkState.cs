@@ -19,8 +19,7 @@ public class WalkState : States
 
     public void OnEnter()
     {
-        Debug.Log("into the patrol");
-        //_enemyCat.GetComponent<MeshRenderer>().material.color = Color.white;
+        //Debug.Log("into the patrol");
         if (_enemyCat.patrolPoints != null && _enemyCat.patrolPoints.Count > 1)
         {
             CustomNodes nearest = null;
@@ -66,12 +65,10 @@ public class WalkState : States
         var path = _enemyCat.gameManager.pathfinding.CalculateAStar(current, next);
         _path = path;
 
-   
-
         if (path.Count > 0)
         {
-            if (_enemyCat.pathRoutine != null)
-                _enemyCat.StopCoroutine(_enemyCat.pathRoutine);
+            if (_enemyCat.pathRoutine != null) _enemyCat.StopCoroutine(_enemyCat.pathRoutine);
+
             _enemyCat.pathRoutine = _enemyCat.StartCoroutine(FollowPath(path));
         }
 
@@ -80,21 +77,15 @@ public class WalkState : States
 
     IEnumerator FollowPath(List<CustomNodes> path)
     {
-        _enemyCat.transform.position = path[0].transform.position;
         path.RemoveAt(0);
 
         while (path.Count > 0)
         {
-            if (_fsm.CurrentStateKey != TypeFSM.Walk)
-                yield break;
-
+            if (_fsm.CurrentStateKey != TypeFSM.Walk) yield break;
 
             _enemyCat.FollowTarget(path[0].transform);
 
-            Vector2 dir = path[0].transform.position - _enemyCat.transform.position;
-
-            if (dir.magnitude <= 0.2f)
-                path.RemoveAt(0);
+            if (_enemyCat.Mindistance(path[0].transform, 0.2f)) path.RemoveAt(0);
 
             yield return null;
         }

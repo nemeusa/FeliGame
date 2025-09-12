@@ -7,6 +7,8 @@ public class PursuitState : States
 {
     FSM<TypeFSM> _fsm;
     EnemyCat _enemyCat;
+    float attackTimer;
+
 
     public PursuitState(FSM<TypeFSM> fsm, EnemyCat enemyCat)
     {
@@ -24,7 +26,7 @@ public class PursuitState : States
         _enemyCat.FollowTarget(_enemyCat.characterTarget.transform);
         //Debug.Log("player in fov update");
 
-       bool followDist = _enemyCat.Mindistance(_enemyCat.minFollowDistancePlayer);
+       bool followDist = _enemyCat.Mindistance(_enemyCat.characterTarget, _enemyCat.minFollowDistancePlayer);
 
         if (!_enemyCat.fov.InFOV(_enemyCat.characterTarget) && !followDist)
         {
@@ -33,7 +35,7 @@ public class PursuitState : States
 
         //else _fsm.ChangeState(TypeFSM.Walk);
 
-     
+        Attack();
 
     }
     public void OnExit()
@@ -47,14 +49,14 @@ public class PursuitState : States
 
         //if (Attacking)
         //{
-        //    Timer += Time.deltaTime;
+        //    attackTimer += Time.deltaTime;
 
-        //    if (Timer >= TimeToAttack)
+        //    if (attackTimer >= _enemyCat.attackTime)
         //    {
-        //        Timer = 0f;
-                bool attackDist = _enemyCat.Mindistance(_enemyCat.minAttackDistancePlayer);
+        //        attackTimer = 0f;
+                bool attackDist = _enemyCat.Mindistance(_enemyCat.characterTarget, _enemyCat.minAttackDistancePlayer);
 
-        //        Debug.Log("atacando es: " + attackDist);
+                Debug.Log("atacando es: " + attackDist);
 
                 if (attackDist) _enemyCat.StartCoroutine(AttackEnum());
         //    }
