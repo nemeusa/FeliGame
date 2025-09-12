@@ -8,7 +8,7 @@ public class EnemyCat : MonoBehaviour
     public FSM<TypeFSM> fsm;
 
     public float speed = 3f;
-    public List<Nodes> patrolPoints;
+    public List<CustomNodes> patrolPoints;
 
     public float _waitPoint;
 
@@ -26,7 +26,7 @@ public class EnemyCat : MonoBehaviour
     [HideInInspector]
     public Vector3 lastKnownPosition;
     [HideInInspector]
-    public Nodes lastKnownNode;
+    public CustomNodes lastKnownNode;
 
     [HideInInspector]
     bool _IsFacingRight = true;
@@ -55,6 +55,7 @@ public class EnemyCat : MonoBehaviour
         fsm.AddState(TypeFSM.Pursuit, new PursuitState(fsm, this));
         fsm.AddState(TypeFSM.Attack, new AttackState(fsm, this));
         fsm.AddState(TypeFSM.Death, new DeathState(fsm, this));
+        fsm.AddState(TypeFSM.Returning, new ReturnWalkState(fsm, this));
 
         fsm.ChangeState(TypeFSM.Walk);
     }
@@ -99,19 +100,19 @@ public class EnemyCat : MonoBehaviour
     public bool Mindistance(float minDistance) => Vector2.Distance(transform.position,
             characterTarget.position) < minDistance;
 
-    public Node FindClosestNode()
+    public CustomNodes FindClosestNode()
     {
-        Node closest = null;
+        CustomNodes closest = null;
         float minDist = Mathf.Infinity;
-        //foreach (var node in gameManager.pathfinding.GetAllNodes())
-        //{
-        //    float dist = Vector3.Distance(transform.position, node.transform.position);
-        //    if (dist < minDist)
-        //    {
-        //        minDist = dist;
-        //        closest = node;
-        //    }
-        //}
+        foreach (var node in gameManager.pathfinding.GetAllNodes())
+        {
+            float dist = Vector3.Distance(transform.position, node.transform.position);
+            if (dist < minDist)
+            {
+                minDist = dist;
+                closest = node;
+            }
+        }
         return closest;
     }
 
@@ -122,5 +123,6 @@ public enum TypeFSM
     Walk,
     Pursuit,
     Attack,
+    Returning,
     Death
 }

@@ -61,7 +61,7 @@ public class PlayerMovement : MonoBehaviour
        PlayerRb.velocity = new Vector2(ReboundSpeed.x * HitPoint.x, ReboundSpeed.y);
     }
 
-    public void SetPath(List<Nodes> path)
+    public void SetPath(List<CustomNodes> path)
     {
         if (path.Count <= 0) return;
 
@@ -71,7 +71,7 @@ public class PlayerMovement : MonoBehaviour
         _CoroutinePath = StartCoroutine(CoroutinePath(path));
     }
 
-    IEnumerator CoroutinePath(List<Nodes> path)
+    IEnumerator CoroutinePath(List<CustomNodes> path)
     {
         transform.position = path[0].transform.position;
         path.RemoveAt(0);

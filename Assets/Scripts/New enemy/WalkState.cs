@@ -7,7 +7,7 @@ public class WalkState : States
     FSM<TypeFSM> _fsm;
     EnemyCat _enemyCat;
 
-    List<Nodes> _path;
+    List<CustomNodes> _path;
 
     Transform _pathPosition;
 
@@ -23,7 +23,7 @@ public class WalkState : States
         //_enemyCat.GetComponent<MeshRenderer>().material.color = Color.white;
         if (_enemyCat.patrolPoints != null && _enemyCat.patrolPoints.Count > 1)
         {
-            Nodes nearest = null;
+            CustomNodes nearest = null;
             float minDist = Mathf.Infinity;
 
             for (int i = 0; i < _enemyCat.patrolPoints.Count; i++)
@@ -78,7 +78,7 @@ public class WalkState : States
         _enemyCat.patrolIndex = (_enemyCat.patrolIndex + 1) % _enemyCat.patrolPoints.Count;
     }
 
-    IEnumerator FollowPath(List<Nodes> path)
+    IEnumerator FollowPath(List<CustomNodes> path)
     {
         _enemyCat.transform.position = path[0].transform.position;
         path.RemoveAt(0);

@@ -28,8 +28,10 @@ public class PursuitState : States
 
         if (!_enemyCat.fov.InFOV(_enemyCat.characterTarget) && !followDist)
         {
-            _fsm.ChangeState(TypeFSM.Walk);
+            _fsm.ChangeState(TypeFSM.Returning);
         }
+
+        //else _fsm.ChangeState(TypeFSM.Walk);
 
      
 

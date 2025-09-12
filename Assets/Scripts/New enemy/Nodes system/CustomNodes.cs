@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class Nodes : MonoBehaviour
+public class CustomNodes : MonoBehaviour
 {
-    public List<Nodes> neighbours = new List<Nodes>();
+    public List<CustomNodes> neighbours = new List<CustomNodes>();
     int _x, _y;
     Grid _grid;
     public bool Block;
@@ -32,7 +32,7 @@ public class Nodes : MonoBehaviour
   //      _text.text = Cost.ToString();
     }
 
-    public List<Nodes> Neighbours
+    public List<CustomNodes> Neighbours
     {
         get
         {

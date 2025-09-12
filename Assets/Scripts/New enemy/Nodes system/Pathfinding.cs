@@ -3,14 +3,23 @@ using UnityEngine;
 
 public class Pathfinding : MonoBehaviour
 {
-    public List<Nodes> CalculateAStar(Nodes start, Nodes goal)
+    public List<CustomNodes> allNodes;
+
+    public List<CustomNodes> GetAllNodes()
     {
-        var frontier = new PriorityQueue<Nodes>();
+        return allNodes;
+        //return new List<Nodes>(FindObjectsOfType<Nodes>());
+
+    }
+
+    public List<CustomNodes> CalculateAStar(CustomNodes start, CustomNodes goal)
+    {
+        var frontier = new PriorityQueue<CustomNodes>();
         frontier.Enqueue(start, 0);
 
-        var cameFrom = new Dictionary<Nodes, Nodes>();
+        var cameFrom = new Dictionary<CustomNodes, CustomNodes>();
         cameFrom.Add(start, null);
-        var costSoFar = new Dictionary<Nodes, float>();
+        var costSoFar = new Dictionary<CustomNodes, float>();
         costSoFar.Add(start, 0);
 
         while (frontier.Count > 0)
@@ -19,7 +28,7 @@ public class Pathfinding : MonoBehaviour
             //current.GetComponent<MeshRenderer>().material.color = Color.blue;
             if (current == goal)
             {
-                List<Nodes> path = new List<Nodes>();
+                List<CustomNodes> path = new List<CustomNodes>();
 
                 while (current != null)
                 {
@@ -54,6 +63,6 @@ public class Pathfinding : MonoBehaviour
             }
         }
 
-        return new List<Nodes>();
+        return new List<CustomNodes>();
     }
 }

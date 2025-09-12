@@ -7,16 +7,16 @@ public class PathManager : MonoBehaviour
     public static PathManager instance;
 
     public Pathfinding pathfinding;
-    public Nodes start, end;
+    public CustomNodes start, end;
     public PlayerMovement player;
     public LayerMask layerMask;
 
-    public List<Nodes> allNodes;
+    public List<CustomNodes> allNodes;
 
     public List<EnemyCat> allEnemies;
     private void Awake()
     {
-        allNodes = new List<Nodes>(FindObjectsOfType<Nodes>());
+        allNodes = new List<CustomNodes>(FindObjectsOfType<CustomNodes>());
         instance = this;
     }
 
@@ -32,7 +32,7 @@ public class PathManager : MonoBehaviour
             }
         }
     }
-    public void SetStartNode(Nodes node)
+    public void SetStartNode(CustomNodes node)
     {
         if (start != null)
             start.GetComponent<MeshRenderer>().material.color = Color.white;
@@ -41,7 +41,7 @@ public class PathManager : MonoBehaviour
         start.GetComponent<MeshRenderer>().material.color = Color.red;
     }
 
-    public void SetGoalNode(Nodes node)
+    public void SetGoalNode(CustomNodes node)
     {
         if (end != null)
             end.GetComponent<MeshRenderer>().material.color = Color.white;
@@ -58,7 +58,7 @@ public class PathManager : MonoBehaviour
         return !Physics.Raycast(start, dir, dir.magnitude, layerMask);
     }
 
-    public void AlertNearbyEnemies(Nodes lastKnownNode)
+    public void AlertNearbyEnemies(CustomNodes lastKnownNode)
     {
         foreach (var enemy in allEnemies)
         {

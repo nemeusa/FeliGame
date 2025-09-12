@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class Grid : MonoBehaviour
 {
-    public List<Nodes> neighbours = new List<Nodes>();
+    public List<CustomNodes> neighbours = new List<CustomNodes>();
 
-    public Nodes prefab;
-    Nodes[,] _grid;
+    public CustomNodes prefab;
+    CustomNodes[,] _grid;
     public int width, height;
     public float offset;
 
     private void Start()
     {
-        _grid = new Nodes[width, height];
+        _grid = new CustomNodes[width, height];
 
         for (int x = 0; x < width; x++)
         {
@@ -41,7 +41,7 @@ public class Grid : MonoBehaviour
         }
     }
 
-    public Nodes GetNode(int x, int y)
+    public CustomNodes GetNode(int x, int y)
     {
         if (x < 0 || y < 0 || x >= width || y >= height)
             return null;

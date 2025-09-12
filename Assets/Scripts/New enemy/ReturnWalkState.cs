@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
-public class ReturnWalkState : MonoBehaviour
+public class ReturnWalkState : States
 {
     FSM<TypeFSM> _fsm;
     EnemyCat _enemyCat;
@@ -14,84 +14,84 @@ public class ReturnWalkState : MonoBehaviour
         _enemyCat = enemyCat;
     }
 
-    //public void OnEnter()
-    //{
-    //    _enemyCat.GetComponent<MeshRenderer>().material.color = Color.white;
-    //    Debug.Log("Returning to patrol points...");
+    public void OnEnter()
+    {
+       // _enemyCat.GetComponent<MeshRenderer>().material.color = Color.white;
 
-    //    Debug.Log("Returning ENTER");
+        Debug.Log("Returning ENTER");
 
-    //    // buscar el nodo de patrulla más cercano
-    //    Node nearestPatrolNode = null;
-    //    float minDist = Mathf.Infinity;
-    //    foreach (var patrolNode in _enemyCat.patrolPoints)
-    //    {
-    //        float dist = Vector3.Distance(_enemyCat.transform.position, patrolNode.transform.position);
-    //        if (dist < minDist)
-    //        {
-    //            minDist = dist;
-    //            nearestPatrolNode = patrolNode;
-    //        }
-    //    }
+        // buscar el nodo de patrulla más cercano
+        CustomNodes nearestPatrolNode = null;
+        float minDist = Mathf.Infinity;
+        foreach (var patrolNode in _enemyCat.patrolPoints)
+        {
+            float dist = Vector3.Distance(_enemyCat.transform.position, patrolNode.transform.position);
+            if (dist < minDist)
+            {
+                minDist = dist;
+                nearestPatrolNode = patrolNode;
+            }
+        }
 
-    //    if (nearestPatrolNode != null)
-    //    {
-    //        // calcular A*
-    //        var path = _enemyCat.gameManager.pathfinding.CalculateAStar(
-    //            _enemyCat.FindClosestNode(), // desde su nodo más cercano
-    //            nearestPatrolNode
-    //        );
+        if (nearestPatrolNode != null)
+        {
+            // calcular A*
+            Debug.Log("Returning to patrol points...");
+            var path = _enemyCat.gameManager.pathfinding.CalculateAStar(
+                _enemyCat.FindClosestNode(), // desde su nodo más cercano
+                nearestPatrolNode
+            );
 
-    //        if (_enemyCat.pathRoutine != null)
-    //            _enemyCat.StopCoroutine(_enemyCat.pathRoutine);
+            if (_enemyCat.pathRoutine != null)
+                _enemyCat.StopCoroutine(_enemyCat.pathRoutine);
 
-    //        _enemyCat.pathRoutine = _enemyCat.StartCoroutine(FollowReturnPath(path));
-    //    }
-    //}
+            _enemyCat.pathRoutine = _enemyCat.StartCoroutine(FollowReturnPath(path));
+        }
+    }
 
-    //public void OnUpdate()
-    //{
-    //    if (_enemyCat.fov.InFOV(_enemyCat.characterTarget))
-    //    {
-    //        _fsm.ChangeState(TypeFSM.Chasing);
-    //    }
-    //}
+    public void OnUpdate()
+    {
+        if (_enemyCat.fov.InFOV(_enemyCat.characterTarget))
+        {
+            _fsm.ChangeState(TypeFSM.Pursuit);
+        }
+    }
 
-    //public void OnExit()
-    //{
-    //    if (_enemyCat.pathRoutine != null)
-    //        _enemyCat.StopCoroutine(_enemyCat.pathRoutine);
-    //}
+    public void OnExit()
+    {
+        if (_enemyCat.pathRoutine != null)
+            _enemyCat.StopCoroutine(_enemyCat.pathRoutine);
+    }
 
-    //IEnumerator FollowReturnPath(List<Node> path)
-    //{
-    //    if (path == null || path.Count == 0)
-    //    {
-    //        _fsm.ChangeState(TypeFSM.Patrolling);
-    //        yield break;
-    //    }
+    IEnumerator FollowReturnPath(List<CustomNodes> path)
+    {
+        if (path == null || path.Count == 0)
+        {
+            _fsm.ChangeState(TypeFSM.Walk);
+            yield break;
+        }
 
-    //    _enemyCat.transform.position = path[0].transform.position;
-    //    path.RemoveAt(0);
+        _enemyCat.transform.position = path[0].transform.position;
+        path.RemoveAt(0);
 
-    //    while (path.Count > 0)
-    //    {
-    //        // abortar si cambia de estado
-    //        if (_fsm.CurrentStateKey != TypeFSM.Returning)
-    //            yield break;
+        while (path.Count > 0)
+        {
+            // abortar si cambia de estado
+            if (_fsm.CurrentStateKey != TypeFSM.Returning)
+                yield break;
 
-    //        var dir = path[0].transform.position - _enemyCat.transform.position;
-    //        _enemyCat.transform.forward = dir;
+            var dir = path[0].transform.position - _enemyCat.transform.position;
+            _enemyCat.transform.forward = dir;
 
-    //        _enemyCat.transform.position += _enemyCat.transform.forward * _enemyCat.speed * Time.deltaTime;
+            _enemyCat.transform.position += _enemyCat.transform.forward * _enemyCat.speed * Time.deltaTime;
 
-    //        if (dir.magnitude <= 0.2f)
-    //            path.RemoveAt(0);
+            if (dir.magnitude <= 0.2f)
+                path.RemoveAt(0);
 
-    //        yield return null;
-    //    }
+            yield return null;
+        }
 
-    //    // cuando llega, vuelve a patrullar
-    //    _fsm.ChangeState(TypeFSM.Patrolling);
-    //}
+        // cuando llega, vuelve a patrullar
+        _fsm.ChangeState(TypeFSM.Walk);
+    }
 }
