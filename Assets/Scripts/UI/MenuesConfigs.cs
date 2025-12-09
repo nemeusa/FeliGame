@@ -8,6 +8,8 @@ public class MenuesConfigs : MonoBehaviour
     public GameObject[] allMenues;
     public GameObject wantedActiveMenu;
 
+    [SerializeField] Animator _aniMenu;
+
     void Start()
     {
         if (allMenues.Length > 0)
@@ -17,6 +19,11 @@ public class MenuesConfigs : MonoBehaviour
 
             if (wantedActiveMenu != null) wantedActiveMenu.SetActive(true);
         }
+    }
+
+    public void MenuCatColor(bool ke)
+    {
+        _aniMenu.SetBool("LevelMenu", ke);
     }
 
     public void ChangeSceneByNumber(int index)

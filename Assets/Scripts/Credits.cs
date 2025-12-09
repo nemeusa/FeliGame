@@ -15,7 +15,7 @@ public class Credits : MonoBehaviour
   
     void Update()
     {
-        if (transform.position.y < 27)
+        if (transform.position.y < 0.33f)
         {
             Vector3 dir = new Vector3(0, 54, 0);
             transform.position += dir * speed * Time.deltaTime;
