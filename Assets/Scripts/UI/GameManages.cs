@@ -5,11 +5,22 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager instance;
+
+    public Transform player;
+
+    public PathManager pathManager;
+
     [SerializeField] GameObject _defeatedMenu, _winMenu, _store;
     [SerializeField] GameObject _pauseUI;
     [SerializeField] UISoundEffects _UISounds;
     private bool _altBool;
     private bool _isPause;
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     private void Update()
     {

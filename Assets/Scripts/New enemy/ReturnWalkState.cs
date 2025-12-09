@@ -35,7 +35,7 @@ public class ReturnWalkState : States
         if (nearestPatrolNode != null)
         {
             // calcular A*
-            var path = _enemyCat.gameManager.pathfinding.CalculateAStar(
+            var path = _enemyCat.pathManager.pathfinding.CalculateAStar(
                 _enemyCat.FindClosestNode(), nearestPatrolNode);
 
             if (_enemyCat.pathRoutine != null)

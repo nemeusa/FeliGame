@@ -16,8 +16,8 @@ public class PathManager : MonoBehaviour
     public List<EnemyCat> allEnemies;
     private void Awake()
     {
-        allNodes = new List<CustomNodes>(FindObjectsOfType<CustomNodes>());
         instance = this;
+        allNodes = new List<CustomNodes>(FindObjectsOfType<CustomNodes>());
     }
 
     private void Update()

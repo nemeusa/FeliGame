@@ -62,7 +62,7 @@ public class WalkState : States
         var current = _enemyCat.patrolPoints[_enemyCat.patrolIndex];
         var next = _enemyCat.patrolPoints[(_enemyCat.patrolIndex + 1) % _enemyCat.patrolPoints.Count];
 
-        var path = _enemyCat.gameManager.pathfinding.CalculateAStar(current, next);
+        var path = _enemyCat.pathManager.pathfinding.CalculateAStar(current, next);
         _path = path;
 
         if (path.Count > 0)

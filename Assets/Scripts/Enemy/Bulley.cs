@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Bulley : MonoBehaviour
 {
-
     [SerializeField] private float Speed;
     public Transform player;
     private Rigidbody2D rb;
@@ -22,25 +21,16 @@ public class Bulley : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D Collider)
     {
-        if (Collider.CompareTag("Player"))
+        PlayerLife playerHP = Collider.GetComponent<PlayerLife>();
+        if (playerHP != null)
         {
-            Collider.GetComponent<PlayerLife>().TakeDamage(Damage);
+            playerHP.TakeHit(Damage, transform);
             Destroy(gameObject);
         }
         if (Collider.CompareTag("Wall"))
         {
             Destroy(gameObject);
         }
-
-        if (Collider.gameObject.CompareTag("Player"))
-        {
-            Vector2 direction = (Collider.transform.position - transform.position).normalized;
-
-            Collider.gameObject.GetComponent<PlayerLife>().TakeDamages(direction);
-
-            //Debug.Log("AAA ME TOCO");
-        }
-
     }
 
 

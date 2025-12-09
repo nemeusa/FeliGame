@@ -6,7 +6,6 @@ public class FOV : MonoBehaviour
 {
     public float viewRadius;
     public float viewAngle;
-    public Transform characterTarget;
     EnemyCat _enemyCat;
     public bool IsFacingRight = true;
 

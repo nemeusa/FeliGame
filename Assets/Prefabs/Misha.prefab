@@ -115,7 +115,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 6.53, y: 0.02, z: 0}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
+  m_LocalScale: {x: -0.2, y: 0.2, z: 0.2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7371897156051707422}
@@ -169,23 +169,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99035c1f5d8eece4fa874b0f58a8299c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
+  speed: 2.5
+  rb: {fileID: 0}
+  damage: 5
+  attackRange: 0.7
+  cooldown: 0.5
+  minFollowDistancePlayer: 5
+  minAttackDistancePlayer: 1.6
+  attackArea: {fileID: 6484278083956434407}
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 8
   patrolPoints: []
   _waitPoint: 0
   patrolIndex: 0
-  gameManager: {fileID: 0}
+  pathManager: {fileID: 0}
   fov: {fileID: 0}
   characterTarget: {fileID: 0}
-  playerScript: {fileID: 0}
   lastKnownPosition: {x: 0, y: 0, z: 0}
   lastKnownNode: {fileID: 0}
-  rb: {fileID: 0}
-  minFollowDistancePlayer: 0
-  minAttackDistancePlayer: 0
-  attackArea: {fileID: 0}
-  attackTime: 0
-  damage: 5
-  attackScript: {fileID: 0}
 --- !u!114 &126905481641794996
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -198,9 +200,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4af228813c49d7941839bb577d753301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viewRadius: 0
-  viewAngle: 0
-  characterTarget: {fileID: 0}
+  viewRadius: 5.35
+  viewAngle: 113.7
   IsFacingRight: 1
 --- !u!114 &4491947719648565654
 MonoBehaviour:
@@ -254,10 +255,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7371897156051707422}
-  - component: {fileID: 7540803707094719958}
   - component: {fileID: 4730352422152039484}
   - component: {fileID: 7762514970242421178}
-  - component: {fileID: 4572641564106884320}
   - component: {fileID: 7601804389185155371}
   m_Layer: 6
   m_Name: AttackArea
@@ -281,51 +280,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 406151940503194890}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &7540803707094719958
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6484278083956434407}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.008506656, y: -0.4017434}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 4.92, y: 3.57}
-    newSize: {x: 19.2, y: 10.8}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 6.2022295, y: 7.383359}
-  m_EdgeRadius: 0
 --- !u!212 &4730352422152039484
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -372,7 +326,7 @@ SpriteRenderer:
   m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 19.2, y: 10.8}
+  m_Size: {x: 4.92, y: 3.57}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -388,18 +342,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 12c60bdc52990d34791767793580f96c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &4572641564106884320
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6484278083956434407}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6cbb0a9ece4bc184bb670f202c84393b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!95 &7601804389185155371

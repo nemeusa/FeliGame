@@ -29,7 +29,13 @@ public class PlayerLife : MonoBehaviour
         if (playerSFX == null) playerSFX = GetComponent<PlayerSoundEffects>();
     }
 
-    public void TakeDamage(float Damage)
+    public void TakeHit(float damage, Transform target)
+    {
+        TakeDamage(damage);
+        TakePostReboud(target);
+    }
+
+    private void TakeDamage(float Damage)
     {
         //if ((Time.time - _lastDamage) < ControlTimeInvincible)
         //{
@@ -57,13 +63,15 @@ public class PlayerLife : MonoBehaviour
         }
     }
 
-    public void TakeDamages(Vector2 position)
+    private void TakePostReboud(Transform target)
     {
+        Vector2 direction = (transform.position - target.position).normalized;
+
         if (Life >= 1)
         {
             StartCoroutine(ControlLose());
             StartCoroutine(Invincible());
-            PlayerMovement.Reboud(position);
+            PlayerMovement.Reboud(direction);
         }
     }
 

@@ -4,50 +4,56 @@ using UnityEngine;
 
 public class EnemyCat : MonoBehaviour
 {
+
     public FSM<TypeFSM> fsm;
 
+    [Header ("Movement")]
     public float speed = 3f;
-    public List<CustomNodes> patrolPoints;
+    [HideInInspector] public Rigidbody2D rb;
 
-    public float _waitPoint;
 
-    public int patrolIndex = 0;
-    public Coroutine pathRoutine;
-
-    public PathManager gameManager;
-
-    public FOV fov;
-
-    public Transform characterTarget;
-
-    public PlayerMovement playerScript;
-
-    [HideInInspector]
-    public Vector3 lastKnownPosition;
-    [HideInInspector]
-    public CustomNodes lastKnownNode;
-
-    [HideInInspector]
-    bool _IsFacingRight = true;
-
-    public Rigidbody2D rb;
-
+    [Header ("Attack")]
+    public float damage = 5;
+    public float attackRange = 3f;
+    [SerializeField] float cooldown = 2;
     public float minFollowDistancePlayer;
     public float minAttackDistancePlayer;
 
+    private float attackTime;
+    [HideInInspector] public Animator attackAni;
+    private RaycastHit2D[] hits;
+
+
+    [Header ("Ref")]
     public GameObject attackArea;
+    [SerializeField] LayerMask playerLayer;
 
-    public float attackTime;
 
-    public float damage = 5;
+    [Header ("Waypoints")]
+    public List<CustomNodes> patrolPoints;
+    public float _waitPoint;
+    public int patrolIndex = 0;
+    public Coroutine pathRoutine;
 
-    public EnemyAttackArea attackScript;
+    [HideInInspector] public PathManager pathManager;
+    [HideInInspector] public FOV fov;
+    [HideInInspector] public Transform characterTarget;
+    [HideInInspector] public Vector3 lastKnownPosition;
+    [HideInInspector] public CustomNodes lastKnownNode;
+    [HideInInspector] bool _IsFacingRight = true;
 
-    public Animator attackAni;
+
+    private void Start()
+    {
+        characterTarget = GameManager.instance.player;
+        pathManager = GameManager.instance.pathManager;
+    }
 
     void Awake()
     {
-        attackScript = GetComponentInChildren<EnemyAttackArea>();
+       
+        attackAni = attackArea.GetComponent<Animator>();
+        fov = GetComponent<FOV>();
         rb = GetComponent<Rigidbody2D>();
         fsm = new FSM<TypeFSM>();
         fsm.AddState(TypeFSM.Walk, new WalkState(fsm, this));
@@ -61,7 +67,9 @@ public class EnemyCat : MonoBehaviour
 
     void Update()
     {
-        //if (characterTarget == null) fsm.ChangeState(TypeFSM.Walk);
+        if (attackTime > 0)
+        attackTime -= Time.deltaTime;
+
         if (characterTarget == null) return;
         fsm.Execute();
     }
@@ -103,7 +111,7 @@ public class EnemyCat : MonoBehaviour
     {
         CustomNodes closest = null;
         float minDist = Mathf.Infinity;
-        foreach (var node in gameManager.pathfinding.GetAllNodes())
+        foreach (var node in pathManager.pathfinding.GetAllNodes())
         {
             float dist = Vector3.Distance(transform.position, node.transform.position);
             if (dist < minDist)
@@ -114,6 +122,40 @@ public class EnemyCat : MonoBehaviour
         }
         return closest;
     }
+
+
+    public void AttackRay()
+    {
+        bool attackDist = Mindistance(characterTarget, minAttackDistancePlayer);
+
+        if (!attackDist) return;
+
+        if (attackTime > 0) return;
+
+        Debug.Log("ataca");
+        attackAni.SetBool("IsAttack", true);
+
+        hits = Physics2D.CircleCastAll(attackArea.transform.position, attackRange, transform.right, 0f, playerLayer);
+
+        //if (hit.collider != null)
+        for (int i = 0; i < hits.Length; i++)
+        {
+            Debug.Log("Golpeó a: " + hits[i].collider.name);
+
+            PlayerLife player = hits[i].collider.GetComponent<PlayerLife>();
+            if (player != null)
+            {
+                player.TakeHit(damage, attackArea.transform);
+            }
+        }
+        attackTime = cooldown;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(attackArea.transform.position, attackRange);
+    }
+
 
 }
 
