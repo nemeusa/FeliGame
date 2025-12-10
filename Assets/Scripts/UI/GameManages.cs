@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
+    [SerializeField] HearthContainer dogsContainer;
+
     public Transform player;
 
     public PathManager pathManager;
@@ -20,6 +22,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] TMP_Text _dogsCollText;
     public int dogCollect;
+    public int maxDogCollect;
 
     [SerializeField] TMP_Text _winTimesText;
     public int winTimes;
@@ -29,20 +32,32 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
-
-       
-
-
     }
 
     private void Start()
     {
-        if (!_inMenu) SaveWithPlayerPref.instance.LoadData();
-        SaveWithPlayerPref.instance.LoadDataMenu();
+        if (!_inMenu)
+        {
+           GameStart();
+        }
 
-        if (_inMenu) WinsTimes();
-        if (_inMenu) return;
-        CollectDogs();
+        if (_inMenu)
+        {
+            MenuStart();
+        }
+    }
+
+    public void MenuStart()
+    {
+        SaveWithPlayerPref.instance.LoadDataMenu();
+        WinsTimes();
+        CollectMaxDogs();
+    }
+
+    public void GameStart()
+    {
+        SaveWithPlayerPref.instance.DeleteDataDogsLevel();
+        SaveWithPlayerPref.instance.LoadData();
     }
 
     private void Update()
@@ -63,6 +78,12 @@ public class GameManager : MonoBehaviour
     public void CollectDogs()
     {
         _dogsCollText.text = "Dogs: " + dogCollect;
+        dogsContainer.HearthsActive(dogCollect);
+    }
+
+    public void CollectMaxDogs()
+    {
+        dogsContainer.HearthsActive(maxDogCollect);
     }
 
     public void WinsTimes()
@@ -83,6 +104,7 @@ public class GameManager : MonoBehaviour
 
     public void PauseLevel(bool pause)
     {
+        SaveWithPlayerPref.instance.LoadData();
             _isPause = pause;
             if (pause) Time.timeScale = 0f;
             else Time.timeScale = 1f;
@@ -96,6 +118,8 @@ public class GameManager : MonoBehaviour
 
     public void WinMenu()
     {
+        if (maxDogCollect < dogCollect)
+        maxDogCollect = dogCollect;
         winTimes++;
         SaveWithPlayerPref.instance.SaveData();
         SceneManager.LoadScene("Credits");

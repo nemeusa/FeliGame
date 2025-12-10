@@ -14,7 +14,12 @@ public class SaveWithPlayerPref : MonoBehaviour
     public void SaveData()
     {
         PlayerPrefs.SetInt("Wins", GameManager.instance.winTimes);
+        PlayerPrefs.SetInt("maxDogsColletibles", GameManager.instance.maxDogCollect);
+        PlayerPrefs.Save();
+    }
 
+    public void SaveDataLevel()
+    {
         PlayerPrefs.SetInt("dogsColletibles", GameManager.instance.dogCollect);
         PlayerPrefs.Save();
     }
@@ -29,9 +34,18 @@ public class SaveWithPlayerPref : MonoBehaviour
     public void LoadDataMenu()
     {
         GameManager.instance.winTimes = PlayerPrefs.GetInt("Wins", 0);
+        GameManager.instance.maxDogCollect = PlayerPrefs.GetInt("maxDogsColletibles", 0);
+        GameManager.instance.CollectMaxDogs();
     }
+
     public void DeleteData()
     {
         PlayerPrefs.DeleteAll();
     }
+
+    public void DeleteDataDogsLevel()
+    {
+        PlayerPrefs.DeleteKey("dogsColletibles");
+    }
+
 }

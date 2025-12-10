@@ -60,6 +60,7 @@ public class PlayerLife : MonoBehaviour
 
     public void AddLife()
     {
+        playerSFX.PlayAddLifeSound();
         if (_currentLife > _maxLife) return;
         _currentLife++;
         _hearthsLife.HearthsActive(_currentLife);

@@ -8,6 +8,7 @@ public class DogCollect : MonoBehaviour
     {
         GameManager.instance.dogCollect++;
         GameManager.instance.CollectDogs();
+        SaveWithPlayerPref.instance.SaveDataLevel();
         Destroy(gameObject);
     }
 }

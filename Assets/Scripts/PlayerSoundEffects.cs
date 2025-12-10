@@ -9,6 +9,7 @@ public class PlayerSoundEffects : MonoBehaviour
     public AudioClip[] damageSound;
     public AudioClip[] shootSound;
     public AudioClip[] ChargeAttackSound;
+    public AudioClip[] ChargeAddLifeSound;
 
     void Start()
     {
@@ -31,6 +32,12 @@ public class PlayerSoundEffects : MonoBehaviour
     {
         int sound = SoundSelected(ChargeAttackSound.Length);
         _myAudioSource.PlayOneShot(ChargeAttackSound[sound]);
+    }
+
+    public void PlayAddLifeSound()
+    {
+        int sound = SoundSelected(ChargeAddLifeSound.Length);
+        _myAudioSource.PlayOneShot(ChargeAddLifeSound[sound]);
     }
 
 
