@@ -7,9 +7,10 @@ using UnityEngine.UIElements;
 public class PlayerLife : MonoBehaviour
 {
     [Header("Life")]
-    [SerializeField] private float MaxLife;
-    [SerializeField] private float Life;
-    [SerializeField] LifeBar barLife;
+    [SerializeField] private int _maxLife;
+    [SerializeField] private int _currentLife;
+    //[SerializeField] LifeBar barLife;
+    [SerializeField] HearthContainer _hearthsLife;
     public GameManager gameManager;
     public PlayerSoundEffects playerSFX;
 
@@ -22,39 +23,33 @@ public class PlayerLife : MonoBehaviour
 
     private void Start()
     {
-        Life = MaxLife;
-        barLife._BarLife(Life);
+        _hearthsLife.HearthsActive(_currentLife);
         PlayerMovement = GetComponent<PlayerMovement>();
         //Animator = GetComponent<Animator>();
         if (playerSFX == null) playerSFX = GetComponent<PlayerSoundEffects>();
     }
 
-    public void TakeHit(float damage, Transform target)
+    public void TakeHit(int damage, Transform target)
     {
         TakeDamage(damage);
         TakePostReboud(target);
     }
 
-    private void TakeDamage(float Damage)
-    {
-        //if ((Time.time - _lastDamage) < ControlTimeInvincible)
-        //{
-        //    return;
-        //}
 
-        //_lastDamage = Time.time;
+    private void TakeDamage(int Damage)
+    {
 
         if (!Animator.GetBool("Hit"))
         {
-            Life = Life - Damage;
-            barLife.actuallyLife(Life);
-            Debug.Log("you are " + Life + " from life");
+            _currentLife = _currentLife - Damage;
+            _hearthsLife.HearthsActive(_currentLife);
+            Debug.Log("you are " + _currentLife + " from life");
             Debug.Log("you get " + Damage + " from damage");
 
 
-            gameManager.CheckDefeatedCondition(Life);
+            gameManager.CheckDefeatedCondition(_currentLife);
 
-            if (Life <= 0)
+            if (_currentLife <= 0)
             {
                 Debug.Log("Moriste :(");
                 Destroy(this.gameObject);
@@ -63,11 +58,18 @@ public class PlayerLife : MonoBehaviour
         }
     }
 
+    public void AddLife()
+    {
+        if (_currentLife > _maxLife) return;
+        _currentLife++;
+        _hearthsLife.HearthsActive(_currentLife);
+    }
+
     private void TakePostReboud(Transform target)
     {
         Vector2 direction = (transform.position - target.position).normalized;
 
-        if (Life >= 1)
+        if (_currentLife >= 1)
         {
             StartCoroutine(ControlLose());
             StartCoroutine(Invincible());

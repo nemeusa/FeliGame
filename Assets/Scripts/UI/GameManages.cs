@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -17,13 +18,37 @@ public class GameManager : MonoBehaviour
     private bool _altBool;
     private bool _isPause;
 
+    [SerializeField] TMP_Text _dogsCollText;
+    public int dogCollect;
+
+    [SerializeField] TMP_Text _winTimesText;
+    public int winTimes;
+
+    public bool _inMenu;
+
     private void Awake()
     {
         instance = this;
+
+       
+
+
+    }
+
+    private void Start()
+    {
+        if (!_inMenu) SaveWithPlayerPref.instance.LoadData();
+        SaveWithPlayerPref.instance.LoadDataMenu();
+
+        if (_inMenu) WinsTimes();
+        if (_inMenu) return;
+        CollectDogs();
     }
 
     private void Update()
     {
+        if (_inMenu) return;
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             _altBool = !_altBool;
@@ -33,6 +58,16 @@ public class GameManager : MonoBehaviour
             _store.SetActive(false);
         }
 
+    }
+
+    public void CollectDogs()
+    {
+        _dogsCollText.text = "Dogs: " + dogCollect;
+    }
+
+    public void WinsTimes()
+    {
+        _winTimesText.text = "Win times: " + winTimes;
     }
 
     public void CheckDefeatedCondition(float life)
@@ -61,6 +96,8 @@ public class GameManager : MonoBehaviour
 
     public void WinMenu()
     {
+        winTimes++;
+        SaveWithPlayerPref.instance.SaveData();
         SceneManager.LoadScene("Credits");
         //PauseLevel(true);
         //_winMenu.SetActive(true);

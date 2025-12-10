@@ -7,8 +7,8 @@ public class Door : MonoBehaviour
 {
     public GameObject NotKey;
     public GameObject Key1;
-    public GameObject OpenDoor;
-    public GameObject TheDoor;
+    //public GameObject OpenDoor;
+    //public GameObject TheDoor;
     [SerializeField] private GameObject WinScreen;
     [SerializeField] private Animator AniPlayer;
     [SerializeField] private Animator AniArrow;
@@ -22,7 +22,7 @@ public class Door : MonoBehaviour
     {
         Key1.SetActive(false);
         NotKey.SetActive(false);
-        OpenDoor.SetActive(false);
+        //OpenDoor.SetActive(false);
     }
 
     private void Update()
@@ -51,7 +51,7 @@ public class Door : MonoBehaviour
         if (other.tag.Equals("Door") && Key.Keys == 1)
         {
             Key1.SetActive(true);
-            OpenDoor.SetActive(true);
+            //OpenDoor.SetActive(true);
 
             if (Input.GetButton("Jump"))
             {
@@ -78,7 +78,7 @@ public class Door : MonoBehaviour
         if (other.tag.Equals("Door") && Key.Keys == 1)
         {
             Key1.SetActive(false);
-            OpenDoor.SetActive(false);
+            //OpenDoor.SetActive(false);
         }
     }
 

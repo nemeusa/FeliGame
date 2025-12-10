@@ -28,6 +28,4 @@ public class LifeBar : MonoBehaviour
         MaxLife(ActuallyLife);
         actuallyLife(ActuallyLife);
     }
-
-
 }

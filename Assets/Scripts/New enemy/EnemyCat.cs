@@ -13,7 +13,7 @@ public class EnemyCat : MonoBehaviour
 
 
     [Header ("Attack")]
-    public float damage = 5;
+    public int damage = 1;
     public float attackRange = 3f;
     [SerializeField] float cooldown = 2;
     public float minFollowDistancePlayer;

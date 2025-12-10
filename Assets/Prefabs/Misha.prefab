@@ -171,11 +171,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 2.5
   rb: {fileID: 0}
-  damage: 5
+  damage: 1
   attackRange: 0.7
   cooldown: 0.5
   minFollowDistancePlayer: 5
   minAttackDistancePlayer: 1.6
+  attackAni: {fileID: 0}
   attackArea: {fileID: 6484278083956434407}
   playerLayer:
     serializedVersion: 2

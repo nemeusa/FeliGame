@@ -7,24 +7,24 @@ public class Bulley : MonoBehaviour
     [SerializeField] private float Speed;
     public Transform player;
     private Rigidbody2D rb;
+    [SerializeField] private int _damage;
 
     void Start()
     {
-        player = FindObjectOfType<PlayerMovement>().transform;
+        player = GameManager.instance.player;
         rb = GetComponent<Rigidbody2D>();
 
         LaunchProjectile();
 
     }
 
-    [SerializeField] private float Damage;
 
     void OnTriggerEnter2D(Collider2D Collider)
     {
         PlayerLife playerHP = Collider.GetComponent<PlayerLife>();
         if (playerHP != null)
         {
-            playerHP.TakeHit(Damage, transform);
+            playerHP.TakeHit(_damage, transform);
             Destroy(gameObject);
         }
         if (Collider.CompareTag("Wall"))
