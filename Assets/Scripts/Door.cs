@@ -16,10 +16,13 @@ public class Door : MonoBehaviour
 
     [SerializeField] GameManager _manages;
 
+    bool canOpen;
+
     public Animator AniDoor;
 
     void Start()
     {
+        canOpen = false;
         Key1.SetActive(false);
         NotKey.SetActive(false);
         //OpenDoor.SetActive(false);
@@ -52,6 +55,7 @@ public class Door : MonoBehaviour
         {
             Key1.SetActive(true);
             //OpenDoor.SetActive(true);
+            canOpen = true;
 
             if (Input.GetButton("Jump"))
             {
@@ -73,10 +77,12 @@ public class Door : MonoBehaviour
         if (other.tag.Equals("Door") && Key.Keys == 0)
         {
             NotKey.SetActive(false);
+            canOpen = false;
         }
 
         if (other.tag.Equals("Door") && Key.Keys == 1)
         {
+            canOpen = false;
             Key1.SetActive(false);
             //OpenDoor.SetActive(false);
         }
@@ -84,7 +90,11 @@ public class Door : MonoBehaviour
 
     public void ButtonOpenDoor()
     {
-        AniDoor.SetTrigger("Open");
+        if (canOpen)
+        {
+
+            _manages.WinMenu();
+        }
     }
 }
 

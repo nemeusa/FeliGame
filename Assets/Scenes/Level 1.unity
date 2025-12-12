@@ -19823,7 +19823,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1149603564}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1722942905}
+        m_TargetAssemblyTypeName: Door, Assembly-CSharp
+        m_MethodName: ButtonOpenDoor
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1149603564
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32047,8 +32059,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 38.14969, y: 0}
-  m_SizeDelta: {x: 2331.0996, y: 980}
+  m_AnchoredPosition: {x: 64.50003, y: 0}
+  m_SizeDelta: {x: 3931, y: 980}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1652219558
 MonoBehaviour:
@@ -43861,6 +43873,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c024db1372fd3a84ea796db141407bad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1722942905 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6742357830524851277, guid: b9f602bb994c8bd4ca740c396bd839d6, type: 3}
+  m_PrefabInstance: {fileID: 2552409311547188903}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e4ea21c7d6df8243b226049a63dfd51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &1728675842 stripped
