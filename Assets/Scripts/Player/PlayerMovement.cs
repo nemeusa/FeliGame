@@ -11,6 +11,8 @@ public class PlayerMovement : MonoBehaviour
     public bool DontMove = false;
     [SerializeField] Vector2 ReboundSpeed;
 
+    [SerializeField] Controller _controller;
+
     [SerializeField] Animator PlayerAnimator;
 
     Coroutine _CoroutinePath;
@@ -25,23 +27,24 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        PlayerMove();
+    }
+
+    void PlayerMove()
+    {
         float moveX = Input.GetAxisRaw("Horizontal");
         float moveY = Input.GetAxisRaw("Vertical");
         MoveInput = new Vector2(moveX, moveY).normalized;
 
-        //PlayerAnimator.SetFloat("Horizontal", moveX);
-        //PlayerAnimator.SetFloat("Vertical", moveY);
-        PlayerAnimator.SetFloat("Speed", MoveInput.sqrMagnitude);
+        PlayerAnimator.SetFloat("Speed", _controller.GetMovementInput().sqrMagnitude);
 
 
-        //if (Input.GetKey(KeyCode.A))
-        if (moveX < 0)
+        if (_controller.GetMovementInput().x < 0)
         {
             transform.localScale = new Vector3(-0.2f, 0.2f, 0.2f);
         }
 
-        //else if (Input.GetKey(KeyCode.D))
-        else if (moveX > 0)
+        else if (_controller.GetMovementInput().x > 0)
         {
             transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
         }
@@ -51,7 +54,8 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!DontMove)
         {
-            PlayerRb.MovePosition(PlayerRb.position + MoveInput * speed * Time.fixedDeltaTime);
+            //PlayerRb.MovePosition(PlayerRb.position + MoveInput * speed * Time.fixedDeltaTime);
+            PlayerRb.MovePosition(PlayerRb.position + _controller.GetMovementInput().normalized * speed * Time.fixedDeltaTime);
         }
         
     }

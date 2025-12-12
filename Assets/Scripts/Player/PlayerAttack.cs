@@ -38,8 +38,7 @@ public class PlayerAttack : MonoBehaviour
 
         if (Input.GetButtonDown("Jump"))
         {
-            _holdTime = 0f;
-            _isCharging = true;
+            Press();
         }
         if (_isCharging)
         {
@@ -51,19 +50,9 @@ public class PlayerAttack : MonoBehaviour
                 _attackIsReady = true;
             }
         }
-        if (_isCharging && Input.GetButtonUp("Jump"))
+        if (Input.GetButtonUp("Jump"))
         {
-            if (_attackIsReady)
-            {
-                ChargeAttack();
-            }
-            else if (Time1 >= TimeAttack && !_isAttacking)
-            {
-                Attack();
-            }
-            _isCharging = false;
-            _holdTime = 0;
-            _attackIsReady = false;
+           PressEnd();
         }
 
         if (_isAttacking && !_attackIsReady)
@@ -105,5 +94,29 @@ public class PlayerAttack : MonoBehaviour
         AttackArea.SetActive(false);
         _chargeAttackArea.SetActive(false);
         PlayerAnimator.SetBool("Attack", false);
+    }
+
+    public void Press()
+    {
+        _holdTime = 0f;
+        _isCharging = true;
+    }
+
+    public void PressEnd()
+    {
+        if (_isCharging)
+        {
+            if (_attackIsReady)
+            {
+                ChargeAttack();
+            }
+            else if (Time1 >= TimeAttack && !_isAttacking)
+            {
+                Attack();
+            }
+            _isCharging = false;
+            _holdTime = 0;
+            _attackIsReady = false;
+        }
     }
 }
