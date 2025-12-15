@@ -57,7 +57,6 @@ public class GameManager : MonoBehaviour
     public void GameStart()
     {
         SaveWithPlayerPref.instance.DeleteDataDogsLevel();
-        SaveWithPlayerPref.instance.LoadData();
     }
 
     private void Update()
@@ -91,26 +90,17 @@ public class GameManager : MonoBehaviour
         _winTimesText.text = "Win times: " + winTimes;
     }
 
-    public void CheckDefeatedCondition(float life)
-    {
-        if (life <= 0)
-        {
-            //PauseLevel(true);
-            DefeatedMenu();
-        }
-
-    }
-
-
     public void PauseLevel(bool pause)
     {
-        SaveWithPlayerPref.instance.LoadData();
-            _isPause = pause;
+
+        if (!_defeatedMenu) SaveWithPlayerPref.instance.LoadData();
+
+        _isPause = pause;
             if (pause) Time.timeScale = 0f;
             else Time.timeScale = 1f;
     }
 
-    void DefeatedMenu()
+    public void DefeatedMenu()
     {
         PauseLevel(true);
         _defeatedMenu.SetActive(true);

@@ -5,22 +5,16 @@ using UnityEngine;
 
 public class AttackArea : MonoBehaviour
 {
-    [SerializeField] private float Damage;
-    [SerializeField] private bool _isChargeAttack;
-    [SerializeField] private int _points;
-    
+    Animator _attackAni;
 
-    private void OnTriggerStay2D (Collider2D Other)
+    private void Awake()
     {
-        if (Other.CompareTag("Enemy"))
-        {
-           Other.gameObject.GetComponent<EnemyLife>().TakeDamage(Damage);
-        }
-        if(Other.CompareTag("Attack") && _isChargeAttack)
-        {
-            Destroy(Other.gameObject);
-            PointsCounter.Instance.AddPoints(_points);
-        }
+        _attackAni = GetComponent<Animator>();
+    }
+
+    public void Finishttack()
+    {
+        _attackAni.SetBool("IsAttack", false);
 
     }
 }

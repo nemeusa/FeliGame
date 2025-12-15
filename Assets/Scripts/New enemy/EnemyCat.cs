@@ -10,6 +10,7 @@ public class EnemyCat : MonoBehaviour
     [Header ("Movement")]
     public float speed = 3f;
     [HideInInspector] public Rigidbody2D rb;
+    [SerializeField] Vector2 ReboundSpeed;
 
 
     [Header ("Attack")]
@@ -27,6 +28,7 @@ public class EnemyCat : MonoBehaviour
     [Header ("Ref")]
     public GameObject attackArea;
     [SerializeField] LayerMask playerLayer;
+    [SerializeField] Animator _catAni;
 
 
     [Header ("Waypoints")]
@@ -67,6 +69,7 @@ public class EnemyCat : MonoBehaviour
 
     void Update()
     {
+
         if (attackTime > 0)
         attackTime -= Time.deltaTime;
 
@@ -82,6 +85,9 @@ public class EnemyCat : MonoBehaviour
 
         Vector3 movement = new Vector3(dir.x, dir.y, 0f) * speed * Time.deltaTime;
         transform.position += movement;
+        //rb.MovePosition(movement);
+
+        _catAni.SetFloat("Walk", movement.sqrMagnitude);
 
         Flip(target);
     }
@@ -123,6 +129,10 @@ public class EnemyCat : MonoBehaviour
         return closest;
     }
 
+    public void Reboud(Vector2 HitPoint)
+    {
+        rb.velocity = new Vector2(ReboundSpeed.x * HitPoint.x, ReboundSpeed.y);
+    }
 
     public void AttackRay()
     {

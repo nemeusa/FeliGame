@@ -39,12 +39,14 @@ public class PlayerMovement : MonoBehaviour
         PlayerAnimator.SetFloat("Speed", _controller.GetMovementInput().sqrMagnitude);
 
 
-        if (_controller.GetMovementInput().x < 0)
+        //if (_controller.GetMovementInput().x < 0)
+        if (moveX < 0)
         {
             transform.localScale = new Vector3(-0.2f, 0.2f, 0.2f);
         }
 
-        else if (_controller.GetMovementInput().x > 0)
+       //else if (_controller.GetMovementInput().x > 0)
+        else if (moveX > 0)
         {
             transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
         }
@@ -54,8 +56,8 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!DontMove)
         {
-            //PlayerRb.MovePosition(PlayerRb.position + MoveInput * speed * Time.fixedDeltaTime);
-            PlayerRb.MovePosition(PlayerRb.position + _controller.GetMovementInput().normalized * speed * Time.fixedDeltaTime);
+            PlayerRb.MovePosition(PlayerRb.position + MoveInput * speed * Time.fixedDeltaTime);
+            //PlayerRb.MovePosition(PlayerRb.position + _controller.GetMovementInput().normalized * speed * Time.fixedDeltaTime);
         }
         
     }

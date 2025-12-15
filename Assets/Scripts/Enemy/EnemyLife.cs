@@ -5,36 +5,68 @@ using UnityEngine;
 
 public class EnemyLife : MonoBehaviour
 {
-    [SerializeField] private float Life;
-    Transform Player;
+    [SerializeField] private int _life;
+    Transform _player;
     [SerializeField] private LayerMask _wall;
     private int _points = 20;
+    [SerializeField] Animator _enemyAnim;
+    EnemyCat _enemyCat;
+    ParticleSystem _deathParticle;
+
+    private void Awake()
+    {
+        _enemyCat = GetComponent<EnemyCat>();
+        _deathParticle = GetComponentInChildren<ParticleSystem>();
+    }
 
     private void Start()
     {
-        Player = FindObjectOfType<PlayerMovement>().transform;
+        _player = GameManager.instance.player;
     }
-    public void TakeDamage(float Damage)
+
+    public void TakeHit(int damage, Transform target)
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, (Player.position - transform.position).normalized, 4, _wall);
-        //if (hit.collider != null && hit.collider.gameObject != Player.gameObject)
-        //{
-            // Hay una pared en el medio, asi que no lo dañan
-         //   return;
-        //}
+        TakeDamage(damage);
+        TakePostReboud(target);
+    }
 
-        Life = Life - Damage;
-        //Debug.Log("Enemy have " + Life + " from life");
+    void TakeDamage(int Damage)
+    {
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, (_player.position - transform.position).normalized, 4, _wall);
+        if (hit) return; // Hay una pared en el medio, asi que no lo dañan
 
-        if (Life <= 0 && !hit)
+        //_deathParticle.Play();
+
+        _life = _life - Damage;
+
+        _enemyAnim.SetBool("Hit", true);
+
+        if (_life <= 0)
         {
             Debug.Log("Enemigo Eliminado");
-            Destroy(this.gameObject);
+            //_deathParticle.Play();
+            var d = Instantiate(_deathParticle, transform.position, Quaternion.identity);
+            d.Play();
+            _enemyAnim.SetBool("Death", true);
             if(PointsCounter.Instance != null)
             {
                 PointsCounter.Instance.AddPoints(_points);
             }
             Debug.Log("ganaste " + _points + " puntos");
+            Destroy(this.gameObject, 0.2f);
+        }
+    }
+
+
+    void TakePostReboud(Transform target)
+    {
+        Vector2 direction = (transform.position - target.position).normalized;
+
+        if (_life >= 1)
+        {
+            //StartCoroutine(ControlLose());
+            //StartCoroutine(Invincible());
+            _enemyCat.Reboud(direction);
         }
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class NoteMusical : MonoBehaviour
 {
-    [SerializeField] float _damage;
+    [SerializeField] int _damage;
 
     private void Update()
     {
@@ -14,7 +14,7 @@ public class NoteMusical : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
-            other.gameObject.GetComponent<EnemyLife>().TakeDamage(_damage);
+            other.gameObject.GetComponent<EnemyLife>().TakeHit(_damage, transform);
             Destroy(gameObject);
         }
         if (other.CompareTag("Wall"))

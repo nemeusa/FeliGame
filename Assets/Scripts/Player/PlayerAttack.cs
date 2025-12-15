@@ -1,20 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
     [Header ("General")]
-    [SerializeField] private float TimeToAttack;
-    [SerializeField] Animator PlayerAnimator;
-    [SerializeField] private float TimeAttack;
-    private float Timer = 0f;
-    private float Time1;
+    [SerializeField] private float _timeToAttack;
+    [SerializeField] Animator _playerAnimator;
+    [SerializeField] private float _timeAttack;
+    private float _timer = 0f;
+    private float _time1;
 
 
     [Header ("Normal Attack")]
     public PlayerSoundEffects playerSFX;
-    [SerializeField] private GameObject AttackArea, _chargeAttackArea;
+    [SerializeField] private GameObject _attackArea, _chargeAttackArea;
     private bool _isAttacking;
     private bool _attackIsReady;
 
@@ -23,10 +24,20 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private float _holdTime;
     private bool _isCharging;
 
+    [Header ("Attack")]
+    [SerializeField] private int _damage;
+    [SerializeField] private bool _isChargeAttack;
+    [SerializeField] private int _points;
+    [SerializeField] private float _attackRange;
+    [SerializeField] private float _chargeAttackRange;
+    private RaycastHit2D[] _hits;
+    [SerializeField] Animator _attackAni;
+    [SerializeField] Animator _chargeAttackAni;
+
 
     void Start()
     {
-        AttackArea = transform.GetChild(0).gameObject;
+        //_attackArea = transform.GetChild(0).gameObject;
         if (playerSFX == null) playerSFX = GetComponent<PlayerSoundEffects>();
         //PlayerAnimator = GetComponent<Animator>();
     }
@@ -34,7 +45,7 @@ public class PlayerAttack : MonoBehaviour
 
     void Update()
     {
-        Time1 += Time.deltaTime;
+        _time1 += Time.deltaTime;
 
         if (Input.GetButtonDown("Jump"))
         {
@@ -46,7 +57,7 @@ public class PlayerAttack : MonoBehaviour
             if (_holdTime >= _chargeTime && !_attackIsReady)
             {
                 //Debug.Log("ataque cargado inicia");
-                PlayerAnimator.SetBool("Charge", true);
+                _playerAnimator.SetBool("Charge", true);
                 _attackIsReady = true;
             }
         }
@@ -57,8 +68,8 @@ public class PlayerAttack : MonoBehaviour
 
         if (_isAttacking && !_attackIsReady)
         {
-            Timer += Time.deltaTime;
-            if (Timer >= TimeToAttack)
+            _timer += Time.deltaTime;
+            if (_timer >= _timeToAttack)
             {
                 ResetAttack();
             }
@@ -67,33 +78,33 @@ public class PlayerAttack : MonoBehaviour
 
     private void Attack()
     {
-        PlayerAnimator.SetBool("Attack", true);
+        _playerAnimator.SetBool("Attack", true);
         playerSFX.PlayPunchSound();
         _isAttacking = true;
-        AttackArea.SetActive(true);
+        AttackRay();
         //Debug.Log("ataque normal");
-        Time1 = 0;
+        _time1 = 0;
     }
 
     private void ChargeAttack()
     {
-        PlayerAnimator.SetBool("Charge", false);
-        PlayerAnimator.SetBool("Attack", true);
+        _playerAnimator.SetBool("Charge", false);
+        _playerAnimator.SetBool("Attack", true);
         playerSFX.PlayChargeAttackSound();
         _isAttacking = true;
         //playerSFX
-        _chargeAttackArea.SetActive(true);
+        ChargeAttackRay();
         //Debug.Log("ATAQUE CARGADOOO");
     }
 
     private void ResetAttack()
     {
-        Timer = 0;
+        _timer = 0;
         _isAttacking = false;
         _attackIsReady = false;
-        AttackArea.SetActive(false);
-        _chargeAttackArea.SetActive(false);
-        PlayerAnimator.SetBool("Attack", false);
+        //_attackArea.SetActive(false);
+        //_chargeAttackArea.SetActive(false);
+        //_playerAnimator.SetBool("Attack", false);
     }
 
     public void Press()
@@ -110,7 +121,7 @@ public class PlayerAttack : MonoBehaviour
             {
                 ChargeAttack();
             }
-            else if (Time1 >= TimeAttack && !_isAttacking)
+            else if (_time1 >= _timeAttack && !_isAttacking)
             {
                 Attack();
             }
@@ -118,5 +129,51 @@ public class PlayerAttack : MonoBehaviour
             _holdTime = 0;
             _attackIsReady = false;
         }
+    }
+
+
+    public void AttackRay()
+    {
+        _attackAni.SetBool("IsAttack", true);
+
+
+        _hits = Physics2D.CircleCastAll(_attackArea.transform.position, _attackRange, transform.right, 0f);
+
+        for (int i = 0; i < _hits.Length; i++)
+        {
+            EnemyLife enemyLife = _hits[i].collider.GetComponent<EnemyLife>();
+            if (enemyLife != null)
+            {
+                enemyLife.TakeHit(_damage, transform);
+            }
+        }
+    }
+
+    public void ChargeAttackRay()
+    {
+        _chargeAttackAni.SetBool("IsAttack", true);
+
+        _hits = Physics2D.CircleCastAll(_chargeAttackArea.transform.position, _chargeAttackRange, transform.right, 0f);
+
+        for (int i = 0; i < _hits.Length; i++)
+        {
+            EnemyLife enemyLife = _hits[i].collider.GetComponent<EnemyLife>();
+            if (enemyLife != null)
+            {
+                enemyLife.TakeHit(_damage * 2, transform);
+            }
+            if (_hits[i].collider.CompareTag("Attack"))
+            {
+                Destroy(_hits[i].collider.gameObject);
+                PointsCounter.Instance.AddPoints(_points);
+            }
+
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(_attackArea.transform.position, _attackRange);
+        Gizmos.DrawWireSphere(_chargeAttackArea.transform.position, _chargeAttackRange);
     }
 }

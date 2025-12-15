@@ -42,19 +42,18 @@ public class PlayerLife : MonoBehaviour
         if (!Animator.GetBool("Hit"))
         {
             _currentLife = _currentLife - Damage;
-            _hearthsLife.HearthsActive(_currentLife);
             Debug.Log("you are " + _currentLife + " from life");
             Debug.Log("you get " + Damage + " from damage");
 
+            _hearthsLife.HearthsActive(_currentLife);
 
-            gameManager.CheckDefeatedCondition(_currentLife);
-
+            playerSFX.PlayDamageSound();
             if (_currentLife <= 0)
             {
+                gameManager.DefeatedMenu();
                 Debug.Log("Moriste :(");
                 Destroy(this.gameObject);
             }
-            playerSFX.PlayDamageSound();
         }
     }
 
