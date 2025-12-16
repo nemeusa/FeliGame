@@ -125,10 +125,10 @@ public class PlayerAttack : MonoBehaviour
             {
                 Attack();
             }
-            _isCharging = false;
-            _holdTime = 0;
             _attackIsReady = false;
         }
+            _holdTime = 0;
+            _isCharging = false;
     }
 
 

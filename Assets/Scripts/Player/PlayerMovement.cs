@@ -36,7 +36,7 @@ public class PlayerMovement : MonoBehaviour
         float moveY = Input.GetAxisRaw("Vertical");
         MoveInput = new Vector2(moveX, moveY).normalized;
 
-        PlayerAnimator.SetFloat("Speed", _controller.GetMovementInput().sqrMagnitude);
+        PlayerAnimator.SetFloat("Speed", MoveInput.sqrMagnitude);
 
 
         //if (_controller.GetMovementInput().x < 0)

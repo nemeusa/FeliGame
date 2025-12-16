@@ -66,8 +66,8 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             _altBool = !_altBool;
-            PauseLevel(_altBool);
             _pauseUI.SetActive(_altBool);
+            PauseLevel(_altBool);
             _UISounds.PlayButtonSound();
             _store.SetActive(false);
         }
@@ -77,6 +77,8 @@ public class GameManager : MonoBehaviour
     public void CollectDogs()
     {
         _dogsCollText.text = "Dogs: " + dogCollect;
+        if (dogsContainer == null) return;
+
         dogsContainer.HearthsActive(dogCollect);
     }
 
@@ -92,12 +94,13 @@ public class GameManager : MonoBehaviour
 
     public void PauseLevel(bool pause)
     {
-
-        if (!_defeatedMenu) SaveWithPlayerPref.instance.LoadData();
-
         _isPause = pause;
             if (pause) Time.timeScale = 0f;
             else Time.timeScale = 1f;
+
+        //if (!_defeatedMenu) 
+        if (pause) 
+            SaveWithPlayerPref.instance.LoadData();
     }
 
     public void DefeatedMenu()
