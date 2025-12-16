@@ -5082,7 +5082,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07d083b4532a83744b273c2cd015b9a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _life: 3
+  _life: 2
   _wall:
     serializedVersion: 2
     m_Bits: 128
