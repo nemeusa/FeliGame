@@ -7,6 +7,7 @@ public class MenuesConfigs : MonoBehaviour
 {
     public GameObject[] allMenues;
     public GameObject wantedActiveMenu;
+    string _sceneName;
 
     void Start()
     {
@@ -28,6 +29,8 @@ public class MenuesConfigs : MonoBehaviour
     {
         SceneManager.LoadScene(name);
     }
+
+
 
     public void ExitGame()
     {

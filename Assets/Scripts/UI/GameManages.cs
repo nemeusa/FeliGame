@@ -32,6 +32,12 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        if (_inMenu) return;
+        PauseLevel(false);
+        _pauseUI.SetActive(true);
+        _pauseUI.SetActive(false);
+
+        //PauseMenu();
     }
 
     private void Start()
@@ -65,11 +71,7 @@ public class GameManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            _altBool = !_altBool;
-            _pauseUI.SetActive(_altBool);
-            PauseLevel(_altBool);
-            _UISounds.PlayButtonSound();
-            _store.SetActive(false);
+            PauseMenu();
         }
 
     }
@@ -92,6 +94,16 @@ public class GameManager : MonoBehaviour
         _winTimesText.text = "Win times: " + winTimes;
     }
 
+    public void PauseMenu()
+    {
+        _altBool = !_altBool;
+        _pauseUI.SetActive(_altBool);
+        PauseLevel(_altBool);
+        SaveWithPlayerPref.instance.LoadData();
+        _UISounds.PlayButtonSound();
+        _store.SetActive(false);
+    }
+
     public void PauseLevel(bool pause)
     {
         _isPause = pause;
@@ -99,14 +111,14 @@ public class GameManager : MonoBehaviour
             else Time.timeScale = 1f;
 
         //if (!_defeatedMenu) 
-        if (pause) 
-            SaveWithPlayerPref.instance.LoadData();
+        //if (pause) 
+        //    SaveWithPlayerPref.instance.LoadData();
     }
 
     public void DefeatedMenu()
     {
-        PauseLevel(true);
         _defeatedMenu.SetActive(true);
+        PauseLevel(true);
     }
 
     public void WinMenu()

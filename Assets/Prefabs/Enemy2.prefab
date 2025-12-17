@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5074736277512786583}
   - component: {fileID: 6163941075699829841}
+  - component: {fileID: 1395992602189196488}
+  - component: {fileID: 3300637677062446763}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
@@ -26,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 3242473584839821555}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.2765687, y: 0.08204657, z: -0.03845607}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -72,7 +74,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 6
   m_Sprite: {fileID: 21300000, guid: 547a3a7749191a44f9cf8f6dfc1f28dd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -84,6 +86,39 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &1395992602189196488
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3242473584839821555}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f75b807f700e62f4db7bacb4aeb34e80, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &3300637677062446763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3242473584839821555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fd7b508528572a43ae93e6fcab506a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4391428283888708218
 GameObject:
   m_ObjectHideFlags: 0
@@ -128,7 +163,8 @@ GameObject:
   - component: {fileID: 1822122278588462947}
   - component: {fileID: 3147035716422795502}
   - component: {fileID: 654158370931792684}
-  m_Layer: 0
+  - component: {fileID: 1518188841536776453}
+  m_Layer: 6
   m_Name: Enemy2
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -145,7 +181,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -4.08, y: 3.42, z: 0.03845607}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
+  m_LocalScale: {x: -0.2, y: 0.2, z: 0.2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5074736277512786583}
@@ -183,10 +219,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07d083b4532a83744b273c2cd015b9a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Life: 10
+  _life: 1
   _wall:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
+  _enemyAnim: {fileID: 0}
 --- !u!50 &3147035716422795502
 Rigidbody2D:
   serializedVersion: 4
@@ -246,6 +283,44 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -1.3140398, y: -0.4531169}
+  m_Offset: {x: 1.2494278, y: -0.4531169}
   serializedVersion: 2
-  m_Radius: 3.1507337
+  m_Radius: 2.648611
+--- !u!114 &1518188841536776453
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8526365947492994933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99035c1f5d8eece4fa874b0f58a8299c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 0
+  rb: {fileID: 0}
+  ReboundSpeed: {x: 0, y: 0}
+  damage: 0
+  attackRange: 0
+  cooldown: 0
+  minFollowDistancePlayer: 0
+  minAttackDistancePlayer: 0
+  attackAni: {fileID: 0}
+  attackArea: {fileID: 4391428283888708218}
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  _catAni: {fileID: 0}
+  _ignoreLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  patrolPoints: []
+  _waitPoint: 0
+  patrolIndex: 0
+  pathManager: {fileID: 0}
+  fov: {fileID: 0}
+  characterTarget: {fileID: 0}
+  lastKnownPosition: {x: 0, y: 0, z: 0}
+  lastKnownNode: {fileID: 0}
+  _oldMan: 1

@@ -97,7 +97,7 @@ public class PlayerAttack : MonoBehaviour
         //Debug.Log("ATAQUE CARGADOOO");
     }
 
-    private void ResetAttack()
+    public void ResetAttack()
     {
         _timer = 0;
         _isAttacking = false;
@@ -121,7 +121,7 @@ public class PlayerAttack : MonoBehaviour
             {
                 ChargeAttack();
             }
-            else if (_time1 >= _timeAttack && !_isAttacking)
+            if (_time1 >= _timeAttack && !_isAttacking)
             {
                 Attack();
             }

@@ -29,6 +29,7 @@ public class EnemyCat : MonoBehaviour
     public GameObject attackArea;
     [SerializeField] LayerMask playerLayer;
     [SerializeField] Animator _catAni;
+    [SerializeField] LayerMask _ignoreLayer;
 
 
     [Header ("Waypoints")]
@@ -43,6 +44,8 @@ public class EnemyCat : MonoBehaviour
     [HideInInspector] public Vector3 lastKnownPosition;
     [HideInInspector] public CustomNodes lastKnownNode;
     [HideInInspector] bool _IsFacingRight = true;
+
+    [SerializeField] bool _oldMan;
 
 
     private void Start()
@@ -69,7 +72,7 @@ public class EnemyCat : MonoBehaviour
 
     void Update()
     {
-
+        if (_oldMan) return;
         if (attackTime > 0)
         attackTime -= Time.deltaTime;
 
@@ -110,8 +113,15 @@ public class EnemyCat : MonoBehaviour
         }
     }
 
-    public bool Mindistance(Transform target,float minDistance) => Vector2.Distance(transform.position,
+    public bool Mindistance(Transform target, float minDistance)
+    {
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, (target.position - transform.position).normalized, minDistance, _ignoreLayer);
+        if (hit.collider != null)
+            return false;
+
+        return Vector2.Distance(transform.position,
             target.position) < minDistance;
+    }
 
     public CustomNodes FindClosestNode()
     {

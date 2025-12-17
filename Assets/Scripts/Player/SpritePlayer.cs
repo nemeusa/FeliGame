@@ -5,6 +5,7 @@ using UnityEngine;
 public class SpritePlayer : MonoBehaviour
 {
     Animator _playerAnimator;
+    [SerializeField] PlayerAttack _playerAttack;
 
     private void Awake()
     {
@@ -12,6 +13,7 @@ public class SpritePlayer : MonoBehaviour
     }
     public void FinishAttack()
     {
+        //_playerAttack.ResetAttack();
         _playerAnimator.SetBool("Attack", false);
     }
 

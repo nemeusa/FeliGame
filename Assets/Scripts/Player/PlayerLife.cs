@@ -17,7 +17,7 @@ public class PlayerLife : MonoBehaviour
     [Header("Cooldown")]
     [SerializeField] private float cooldown;
     private float _lastDamage;
-    [SerializeField] private Animator Animator;
+    [SerializeField] private Animator _playerAni;
     [SerializeField] private float DontControlTime, ControlTimeInvincible;
     private PlayerMovement PlayerMovement;
 
@@ -39,11 +39,12 @@ public class PlayerLife : MonoBehaviour
     private void TakeDamage(int Damage)
     {
 
-        if (!Animator.GetBool("Hit"))
+        if (!_playerAni.GetBool("Hit"))
         {
+            _playerAni.SetBool("Attack", false);
             _currentLife = _currentLife - Damage;
-            Debug.Log("you are " + _currentLife + " from life");
-            Debug.Log("you get " + Damage + " from damage");
+            //Debug.Log("you are " + _currentLife + " from life");
+            //Debug.Log("you get " + Damage + " from damage");
 
             _hearthsLife.HearthsActive(_currentLife);
 
@@ -80,9 +81,9 @@ public class PlayerLife : MonoBehaviour
     private IEnumerator Invincible()
     {
         Physics2D.IgnoreLayerCollision(3, 6, true);
-        Animator.SetBool("Hit", true);
+        _playerAni.SetBool("Hit", true);
         yield return new WaitForSeconds(ControlTimeInvincible);
-        Animator.SetBool("Hit", false);
+        _playerAni.SetBool("Hit", false);
         Physics2D.IgnoreLayerCollision(3, 6, false);
     }
     private IEnumerator ControlLose()

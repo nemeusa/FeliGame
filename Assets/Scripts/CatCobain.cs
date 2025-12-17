@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 public class CatCobain : MonoBehaviour
 {
@@ -55,7 +54,7 @@ public class CatCobain : MonoBehaviour
 
     private void ShootSystem()
     {
-        Enemy target = FindNearestEnemy();
+        EnemyCat target = FindNearestEnemy();
         if (target != null && Time.time >= _nextFireTime)
         {
             Shoot(target.transform);
@@ -80,9 +79,9 @@ public class CatCobain : MonoBehaviour
 
     }
 
-    Enemy FindNearestEnemy()
+    EnemyCat FindNearestEnemy()
     {
-        Enemy _nearestEnemy = null;
+        EnemyCat _nearestEnemy = null;
         float shortestDistance = _detectionRange;
 
         foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
@@ -91,7 +90,7 @@ public class CatCobain : MonoBehaviour
             if (distance < shortestDistance)
             {
                 shortestDistance = distance;
-                _nearestEnemy = enemy.GetComponent<Enemy>();
+                _nearestEnemy = enemy.GetComponent<EnemyCat>();
                 bool IsPlayerRight = transform.position.x < enemy.transform.position.x;
                 Flip(IsPlayerRight);
             }

@@ -32,7 +32,7 @@ public class GuideArrow : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.F))
         {
-            _arrowObject.SetActive(!_arrowObject.activeSelf);
+            //_arrowObject.SetActive(!_arrowObject.activeSelf);
         }
     }
 

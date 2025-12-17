@@ -4902,7 +4902,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 6
   m_Sprite: {fileID: 21300000, guid: 4a9f6c4509592bf4b98cd1614b6b79fc, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
@@ -5038,7 +5038,7 @@ MonoBehaviour:
   ReboundSpeed: {x: 10, y: 0.2}
   damage: 1
   attackRange: 0.7
-  cooldown: 0.5
+  cooldown: 1
   minFollowDistancePlayer: 5
   minAttackDistancePlayer: 1.6
   attackAni: {fileID: 0}
@@ -5047,6 +5047,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   _catAni: {fileID: 8406345208145846003}
+  _ignoreLayer:
+    serializedVersion: 2
+    m_Bits: 128
   patrolPoints: []
   _waitPoint: 0
   patrolIndex: 0
@@ -5067,9 +5070,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4af228813c49d7941839bb577d753301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viewRadius: 5.35
+  viewRadius: 7
   viewAngle: 113.7
   IsFacingRight: 1
+  _ignoreLayer:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!114 &4491947719648565654
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5085,7 +5091,7 @@ MonoBehaviour:
   _life: 2
   _wall:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 0
   _enemyAnim: {fileID: 8406345208145846003}
 --- !u!50 &7396378376070078180
 Rigidbody2D:
@@ -5188,7 +5194,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 5
+  m_SortingOrder: 7
   m_Sprite: {fileID: 21300000, guid: 99c6e683256290d4786b11804df32f4e, type: 3}
   m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 1

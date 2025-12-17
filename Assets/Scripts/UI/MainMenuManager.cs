@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MainMenuManager : MonoBehaviour
 {
+    public static MainMenuManager instance;
 
     [SerializeField] GameObject _tableroBig;
 
@@ -16,6 +18,12 @@ public class MainMenuManager : MonoBehaviour
 
     bool move;
 
+    string _sceneName;
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     void Start()
     {
@@ -42,6 +50,26 @@ public class MainMenuManager : MonoBehaviour
                 _feliPost.localScale = new Vector2(1, _feliPost.localScale.y);
             }
         }
+    }
+
+
+    public void AssignSceneByName(string name)
+    {
+        _sceneName = name;
+    }
+
+
+    public void ChangeSceneAfterAni()
+    {
+        SceneManager.LoadScene(_sceneName);
+
+    }
+
+    public void IntroLevelAnimation()
+    {
+        _aniFeliMenu.SetBool("Attack", false);
+        _aniFeliMenu.SetBool("Move", false);
+        _aniFeliMenu.SetBool("Jumping", true);
     }
 
     public void TableroActive(bool onTurn)

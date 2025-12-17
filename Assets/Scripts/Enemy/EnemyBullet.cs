@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyBullet : MonoBehaviour
@@ -16,6 +17,8 @@ public class EnemyBullet : MonoBehaviour
 
     [SerializeField] private float DelayBullet;
     private float TimeBullet;
+
+    bool _IsFacingRight;
 
     private void Start()
     {
@@ -49,8 +52,27 @@ public class EnemyBullet : MonoBehaviour
        // }
         if(_oldman)
         {
-            bool IsPlayerRight = transform.position.x < Player.position.x;
-            Flip(IsPlayerRight);
+            //bool IsPlayerRight = transform.position.x < Player.position.x;
+            //Flip2(Player);
+        }
+    }
+
+
+    public void Flip2(Transform target)
+    {
+        Vector2 dir = target.position - transform.position;
+
+        bool IsTargetRight = transform.position.x < target.transform.position.x;
+
+        if ((_IsFacingRight && !IsTargetRight) || (!_IsFacingRight && IsTargetRight))
+        {
+            _IsFacingRight = IsTargetRight; //  acá sincronizas
+
+            Vector3 scale = transform.localScale;
+            scale.x *= -1;
+            transform.localScale = scale;
+
+            //fov.IsFacingRight = _IsFacingRight;
         }
     }
 

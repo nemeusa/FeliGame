@@ -8,10 +8,21 @@ public class FOV : MonoBehaviour
     public float viewAngle;
     EnemyCat _enemyCat;
     public bool IsFacingRight = true;
+    [SerializeField] LayerMask _ignoreLayer;
 
 
     public bool InFOV(Transform target)
     {
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, (target.position - transform.position).normalized, viewRadius, _ignoreLayer);
+        if (hit.collider != null)
+        {
+            //Debug.Log("toco pared");
+
+            // Hay una pared en el medio, asi que no sigue al jugador
+            return false;
+        }
+
+
         var dir = target.position - transform.position;
 
         if (dir.magnitude <= viewRadius)
