@@ -5058,6 +5058,7 @@ MonoBehaviour:
   characterTarget: {fileID: 0}
   lastKnownPosition: {x: 0, y: 0, z: 0}
   lastKnownNode: {fileID: 0}
+  _oldMan: 0
 --- !u!114 &126905481641794996
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5093,6 +5094,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   _enemyAnim: {fileID: 8406345208145846003}
+  _controlTimeInvincible: 0.3
 --- !u!50 &7396378376070078180
 Rigidbody2D:
   serializedVersion: 4

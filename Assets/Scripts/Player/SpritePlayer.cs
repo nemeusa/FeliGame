@@ -11,6 +11,7 @@ public class SpritePlayer : MonoBehaviour
     {
         _playerAnimator = GetComponent<Animator>();
     }
+
     public void FinishAttack()
     {
         //_playerAttack.ResetAttack();

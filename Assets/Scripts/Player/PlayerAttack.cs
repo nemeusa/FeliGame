@@ -74,14 +74,18 @@ public class PlayerAttack : MonoBehaviour
                 ResetAttack();
             }
         }
+
+        if (_attackAni.GetBool("IsAttack")) AttackRay();
+        if (_chargeAttackAni.GetBool("IsAttack")) ChargeAttackRay();
+
     }
 
     private void Attack()
     {
         _playerAnimator.SetBool("Attack", true);
+        _attackAni.SetBool("IsAttack", true);
         playerSFX.PlayPunchSound();
         _isAttacking = true;
-        AttackRay();
         //Debug.Log("ataque normal");
         _time1 = 0;
     }
@@ -90,6 +94,7 @@ public class PlayerAttack : MonoBehaviour
     {
         _playerAnimator.SetBool("Charge", false);
         _playerAnimator.SetBool("Attack", true);
+        _chargeAttackAni.SetBool("IsAttack", true);
         playerSFX.PlayChargeAttackSound();
         _isAttacking = true;
         //playerSFX
@@ -134,7 +139,6 @@ public class PlayerAttack : MonoBehaviour
 
     public void AttackRay()
     {
-        _attackAni.SetBool("IsAttack", true);
 
 
         _hits = Physics2D.CircleCastAll(_attackArea.transform.position, _attackRange, transform.right, 0f);
@@ -151,7 +155,6 @@ public class PlayerAttack : MonoBehaviour
 
     public void ChargeAttackRay()
     {
-        _chargeAttackAni.SetBool("IsAttack", true);
 
         _hits = Physics2D.CircleCastAll(_chargeAttackArea.transform.position, _chargeAttackRange, transform.right, 0f);
 

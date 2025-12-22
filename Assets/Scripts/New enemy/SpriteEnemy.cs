@@ -12,7 +12,7 @@ public class SpriteEnemy : MonoBehaviour
     }
     public void FinishAttack()
     {
-        _enemyAni.SetBool("Hit", false);
+       // _enemyAni.SetBool("Hit", false);
     }
 
 

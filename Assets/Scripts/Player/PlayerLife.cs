@@ -18,7 +18,7 @@ public class PlayerLife : MonoBehaviour
     [SerializeField] private float cooldown;
     private float _lastDamage;
     [SerializeField] private Animator _playerAni;
-    [SerializeField] private float DontControlTime, ControlTimeInvincible;
+    [SerializeField] private float _dontControlTime, _controlTimeInvincible;
     private PlayerMovement PlayerMovement;
 
     private void Start()
@@ -82,14 +82,14 @@ public class PlayerLife : MonoBehaviour
     {
         Physics2D.IgnoreLayerCollision(3, 6, true);
         _playerAni.SetBool("Hit", true);
-        yield return new WaitForSeconds(ControlTimeInvincible);
+        yield return new WaitForSeconds(_controlTimeInvincible);
         _playerAni.SetBool("Hit", false);
         Physics2D.IgnoreLayerCollision(3, 6, false);
     }
     private IEnumerator ControlLose()
     {
         PlayerMovement.DontMove = true;
-        yield return new WaitForSeconds(DontControlTime);
+        yield return new WaitForSeconds(_dontControlTime);
         PlayerMovement.DontMove = false;
     }
 
